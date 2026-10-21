@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classical-e93873a3-be33-4b8e-a9a4-ca7980c7f1ff/styles.css">
+<script src="_ds/classical-e93873a3-be33-4b8e-a9a4-ca7980c7f1ff/_ds_bundle.js"></script>
+<script src="./nexin.js"></script>
+<style>
+html,body{margin:0;height:100%;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);}
+a{color:var(--color-accent-700);}
+a:hover{color:var(--color-accent-800);}
+@keyframes dcPulse{0%,100%{opacity:.25}50%{opacity:1}}
+</style>
+</helmet>
+<div style="display:flex;height:100vh;overflow:hidden;background:var(--color-bg);">
+
+  <aside data-screen-label="Sidebar" style="width:240px;flex-shrink:0;display:flex;flex-direction:column;background:var(--color-neutral-900);color:var(--color-neutral-200);">
+    <div style="position:relative;padding:20px 12px 16px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:0 8px 14px;">
+        <span style="width:34px;height:34px;border:1px solid var(--color-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:19px;color:var(--color-accent-300);">N</span>
+        <div style="display:flex;flex-direction:column;line-height:1.15;"><span style="font-family:var(--font-heading);font-weight:600;font-size:22px;color:var(--color-neutral-100);letter-spacing:.01em;">Nexin</span><span style="font-size:11px;color:var(--color-neutral-400);">Osoyoos Indian Band</span></div>
+      </div>
+      <button onClick="{{ sw.toggle }}" aria-label="Switch app" aria-expanded="{{ sw.open }}" style="all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid color-mix(in srgb, var(--color-neutral-100) 18%, transparent);border-radius:var(--radius-md);color:var(--color-neutral-100);" style-hover="border-color:var(--color-accent);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+        <span style="flex:1;font-size:14px;">HRIS</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+      </button>
+      <sc-if value="{{ sw.open }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ sw.close }}" style="position:fixed;inset:0;z-index:49;"></div>
+        <div class="card elev-lg" style="position:absolute;left:12px;top:calc(100% - 8px);z-index:50;width:300px;padding:0;background:var(--color-bg);color:var(--color-text);">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--color-divider);"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);">Nexin apps</div><div style="font-size:12px;color:var(--color-neutral-600);margin-top:2px;">{{ sw.note }}</div></div>
+          <div style="padding:6px;display:flex;flex-direction:column;gap:2px;">
+            <sc-for list="{{ sw.apps }}" as="a" hint-placeholder-count="2">
+              <a href="{{ a.href }}" onClick="{{ a.go }}" style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:var(--radius-md);text-decoration:none;color:var(--color-text);background:{{ a.bg }};" style-hover="background:var(--color-neutral-100);">
+                <span style="width:34px;height:34px;flex-shrink:0;border:1px solid var(--color-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:13px;color:var(--color-accent-800);">{{ a.mark }}</span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;"><span style="font-size:14px;">{{ a.name }}</span><span style="font-size:12px;color:var(--color-neutral-600);">{{ a.desc }}</span><span style="font-size:11px;color:var(--color-accent-700);margin-top:2px;">{{ a.roleLabel }}</span></span>
+                <sc-if value="{{ a.isCur }}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    <nav style="flex:1;padding:0 12px;display:flex;flex-direction:column;gap:2px;">
+      <a href="#" onClick="{{ nav.dash.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.dash.bg }};color:{{ nav.dash.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ nav.dash.ic }}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>Dashboard</a>
+      <a href="#" onClick="{{ nav.people.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.people.bg }};color:{{ nav.people.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ nav.people.ic }}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>People</a>
+      <a href="#" onClick="{{ nav.timeoff.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.timeoff.bg }};color:{{ nav.timeoff.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ nav.timeoff.ic }}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path></svg>Time off</a>
+      <a href="#" onClick="{{ nav.recruiting.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.recruiting.bg }};color:{{ nav.recruiting.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ nav.recruiting.ic }}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Recruiting</a>
+      <a href="#" onClick="{{ nav.payroll.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.payroll.bg }};color:{{ nav.payroll.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ nav.payroll.ic }}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>Payroll</a>
+      <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ true }}">
+        <a href="#" onClick="{{ nav.versions.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.versions.bg }};color:{{ nav.versions.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ nav.versions.ic }}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg>Version history</a>
+      </sc-if>
+    </nav>
+    <div style="border-top:1px solid color-mix(in srgb, var(--color-neutral-100) 12%, transparent);padding:12px;display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 12px;">
+        <span style="width:32px;height:32px;border-radius:50%;border:1px solid var(--color-accent);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--color-neutral-100);">{{ profile.initials }}</span>
+        <div style="min-width:0;">
+          <div style="font-size:14px;color:var(--color-neutral-100);">{{ profile.name }}</div>
+          <div style="font-size:12px;color:var(--color-neutral-400);">{{ role }}</div>
+        </div>
+      </div>
+      <select value="{{ personaId }}" onChange="{{ onPersona }}" aria-label="Preview as user" style="width:100%;padding:6px 8px;font-family:var(--font-body);font-size:12px;border-radius:var(--radius-md);border:1px solid color-mix(in srgb, var(--color-neutral-100) 18%, transparent);background:var(--color-neutral-800);color:var(--color-neutral-100);">
+        <sc-for list="{{ personaOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.id }}">{{ o.label }}</option></sc-for>
+      </select>
+    </div>
+  </aside>
+
+  <main ref="{{ mainRef }}" data-screen-label="{{ pageLabel }}" style="flex:1;min-width:0;overflow-y:auto;">
+    <div style="position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:10px 36px;background:var(--color-bg);border-bottom:1px solid var(--color-divider);">
+      <a href="#" onClick="{{ openMe }}" style="font-size:12px;color:var(--color-neutral-600);font-style:italic;text-decoration:none;" style-hover="color:var(--color-text);">Signed in as {{ profile.name }} · {{ role }}</a>
+      <div style="position:relative;">
+        <button class="btn btn-ghost btn-icon" aria-label="Notifications" onClick="{{ toggleBell }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        </button>
+        <sc-if value="{{ hasUnreadN }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:0;right:0;min-width:16px;height:16px;padding:0 4px;box-sizing:border-box;border-radius:999px;background:var(--color-bg);border:1px solid var(--color-accent);color:var(--color-accent-800);font-size:10px;display:flex;align-items:center;justify-content:center;font-feature-settings:'tnum';pointer-events:none;">{{ unreadN }}</span></sc-if>
+        <sc-if value="{{ bellOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="card elev-lg" style="position:absolute;right:0;top:calc(100% + 8px);width:380px;max-width:80vw;padding:0;background:var(--color-bg);">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--color-divider);">
+              <div><div style="font-family:var(--font-heading);font-weight:600;font-size:18px;">Notifications</div><div style="font-size:12px;color:var(--color-neutral-600);">{{ bellAudience }}</div></div>
+              <a href="#" onClick="{{ markAllRead }}" style="font-size:12px;">Mark all read</a>
+            </div>
+            <div style="max-height:420px;overflow-y:auto;">
+              <sc-for list="{{ noteRows }}" as="n" hint-placeholder-count="2">
+                <div style="display:flex;gap:12px;padding:14px 16px;border-top:{{ n.border }};background:{{ n.bg }};">
+                  <span style="width:7px;height:7px;margin-top:7px;border-radius:50%;background:{{ n.dot }};flex-shrink:0;"></span>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);">{{ n.kicker }}</div>
+                    <div style="font-size:14px;margin-top:2px;">{{ n.text }}</div>
+                    <div style="font-size:12px;color:var(--color-neutral-600);margin-top:2px;">{{ n.sub }} · {{ n.time }}</div>
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;">
+                      <sc-if value="{{ n.canApprove }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary" style="padding:3px 10px;font-size:12px;" onClick="{{ n.approve }}">Approve</button></sc-if>
+                      <sc-if value="{{ n.canPay }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary" style="padding:3px 10px;font-size:12px;" onClick="{{ n.pay }}">Process payment</button></sc-if>
+                      <button class="btn btn-ghost" style="padding:3px 10px;font-size:12px;" onClick="{{ n.open }}">{{ n.openLabel }}</button>
+                      <sc-if value="{{ n.resolved }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-style:italic;color:var(--color-neutral-600);">{{ n.resolved }}</span></sc-if>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ noNotes }}" hint-placeholder-val="{{ false }}"><div style="padding:32px 16px;text-align:center;font-size:14px;font-style:italic;color:var(--color-neutral-600);">You're all caught up.</div></sc-if>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;padding:40px 36px 96px;">
+<sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div>
+          <h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Good morning, {{ firstName }}</h1>
+          <p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Wednesday, October 14 · Here's what's happening across the Band today.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost" onClick="{{ nav.people.go }}">View directory</button>
+          
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;">
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Total headcount</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">141</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-accent-700);">+7 since last month</div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Open roles</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">{{ openRoleCount }}</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">{{ applicants }} active applicants</div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Pending requests</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">{{ pendingCount }}</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">Awaiting your approval</div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Annual turnover</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">6.2%</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-accent-700);">−1.4% vs. last year</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;">
+        <section class="card" style="flex:2 1 420px;padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);">
+            <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Headcount growth</h2>
+            <div style="font-size:12px;color:var(--color-neutral-600);">Last 6 months</div>
+          </div>
+          <div style="padding:20px;display:flex;align-items:flex-end;gap:20px;height:224px;">
+            <sc-for list="{{ trend }}" as="d" hint-placeholder-count="6">
+              <div style="flex:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;">
+                <span style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ d.value }}</span>
+                <div style="width:100%;height:{{ d.h }};border:1px solid {{ d.stroke }};background:{{ d.fill }};border-bottom:none;border-radius:var(--radius-sm) var(--radius-sm) 0 0;"></div>
+                <span style="font-size:12px;color:var(--color-neutral-600);">{{ d.month }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+        <section class="card" style="flex:1 1 260px;padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);">
+            <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">By department</h2>
+            <div style="font-size:12px;color:var(--color-neutral-600);">141 employees</div>
+          </div>
+          <div style="padding:20px;">
+            <div style="display:flex;height:8px;border-radius:999px;overflow:hidden;gap:2px;">
+              <sc-for list="{{ depts }}" as="d" hint-placeholder-count="7"><div style="width:{{ d.pct }};background:{{ d.color }};"></div></sc-for>
+            </div>
+            <div style="margin-top:18px;display:flex;flex-direction:column;gap:11px;">
+              <sc-for list="{{ depts }}" as="d" hint-placeholder-count="7">
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:14px;">
+                  <span style="display:flex;align-items:center;gap:10px;"><span style="width:10px;height:10px;border-radius:2px;background:{{ d.color }};"></span>{{ d.name }}</span>
+                  <span style="color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ d.headcount }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;align-items:flex-start;">
+        <section class="card" style="flex:2 1 420px;padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Pending approvals</h2>
+              <div style="font-size:12px;color:var(--color-neutral-600);">Time-off requests from your team</div>
+            </div>
+            <a href="#" onClick="{{ nav.timeoff.go }}" style="font-size:12px;">View all</a>
+          </div>
+          <div style="padding:4px 20px;">
+            <sc-for list="{{ requestRows }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-top:{{ r.border }};">
+                <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+                  <span style="width:36px;height:36px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:{{ r.bg }};color:{{ r.fg }};">{{ r.initials }}</span>
+                  <div style="min-width:0;">
+                    <div style="font-size:14px;">{{ r.name }}</div>
+                    <div style="font-size:12px;color:var(--color-neutral-600);">{{ r.range }} · {{ r.daysLabel }}</div>
+                  </div>
+                  <span class="tag tag-neutral">{{ r.type }}</span>
+                  <sc-if value="{{ r.viaAgent }}" hint-placeholder-val="{{ false }}"><span class="tag tag-outline" style="display:inline-flex;align-items:center;gap:4px;">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10.7l-5.8 1.9L12 18.5l-1.9-5.9L4 10.7l6.1-1.9z"></path></svg>via Raven</span></sc-if>
+                </div>
+                <sc-if value="{{ r.isPending }}" hint-placeholder-val="{{ true }}">
+                  <sc-if value="{{ r.canAct }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;gap:8px;">
+                      <button class="btn btn-ghost" style="padding:4px 12px;font-size:13px;" onClick="{{ r.onDecline }}">Decline</button>
+                      <button class="btn btn-primary" style="padding:4px 12px;font-size:13px;" onClick="{{ r.onApprove }}">Approve</button>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ r.cannotAct }}" hint-placeholder-val="{{ false }}"><span class="tag tag-outline">Pending</span></sc-if>
+                </sc-if>
+                <sc-if value="{{ r.isResolved }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:13px;font-style:italic;color:{{ r.statusColor }};">{{ r.status }}</span>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:24px;">
+          <section class="card" style="padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);">
+              <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Celebrations</h2>
+              <div style="font-size:12px;color:var(--color-neutral-600);">Next 10 days</div>
+            </div>
+            <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+              <sc-for list="{{ events }}" as="e" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <span style="width:28px;height:28px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;background:{{ e.bg }};color:{{ e.fg }};">{{ e.initials }}</span>
+                  <div style="flex:1;min-width:0;">
+                    <a href="#" onClick="{{ e.open }}" style="font-size:14px;color:var(--color-text);text-decoration:none;" style-hover="text-decoration:underline;">{{ e.name }}</a>
+                    <div style="font-size:12px;color:var(--color-neutral-600);font-style:italic;">{{ e.kind }}</div>
+                  </div>
+                  <span style="font-size:12px;color:var(--color-neutral-600);">{{ e.date }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+          <section class="card" style="padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);">
+              <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Onboarding</h2>
+              <div style="font-size:12px;color:var(--color-neutral-600);">Kenji Watanabe starts Oct 19</div>
+            </div>
+            <div style="padding:18px 20px;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;">
+                <span style="color:var(--color-neutral-600);">{{ doneCount }} of 6 tasks</span>
+                <span style="font-feature-settings:'tnum';">{{ pctLabel }}</span>
+              </div>
+              <div style="margin-top:6px;height:4px;background:var(--color-neutral-200);border-radius:999px;overflow:hidden;">
+                <div style="height:100%;width:{{ pctLabel }};background:var(--color-accent);transition:width .4s ease;"></div>
+              </div>
+              <div style="margin-top:16px;display:flex;flex-direction:column;gap:9px;">
+                <sc-for list="{{ taskRows }}" as="t" hint-placeholder-count="6">
+                  <div style="display:flex;align-items:center;gap:9px;font-size:14px;">
+                    <sc-if value="{{ t.done }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg></sc-if>
+                    <sc-if value="{{ t.notDone }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-neutral-400)" stroke-width="1.75"><circle cx="12" cy="12" r="10"></circle></svg></sc-if>
+                    <span style="color:{{ t.color }};text-decoration:{{ t.deco }};">{{ t.label }}</span>
+                    <sc-if value="{{ t.viaAgent }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-style:italic;color:var(--color-accent-700);">via Raven</span></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+</sc-if>
+
+<sc-if value="{{ isPeople }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div>
+          <h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">People</h1>
+          <p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Everyone working for the Osoyoos Indian Band, across 7 departments.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-ghost">Export</button><button class="btn btn-primary">Add employee</button></div>
+      </div>
+      <section class="card" style="padding:0;">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;flex-direction:column;gap:12px;">
+          <input class="input" type="search" value="{{ q }}" onChange="{{ onQ }}" placeholder="Search by name, role, or location" aria-label="Search employees" style="max-width:360px;">
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><sc-for list="{{ deptChips }}" as="c" hint-placeholder-count="5"><button onClick="{{ c.go }}" style="padding:4px 12px;border-radius:999px;font-size:12px;font-family:var(--font-body);cursor:pointer;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};">{{ c.label }}</button></sc-for></div>
+        </div>
+        <div style="overflow-x:auto;">
+          <div style="min-width:640px;">
+            <div style="display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 110px;gap:16px;padding:10px 20px;border-bottom:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-600);"><span>Name</span><span>Department</span><span>Location</span><span>Start date</span><span>Status</span></div>
+            <sc-for list="{{ empRows }}" as="e" hint-placeholder-count="8">
+              <div onClick="{{ e.open }}" role="link" tabindex="0" style="cursor:pointer;display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 110px;gap:16px;align-items:center;padding:12px 20px;border-top:{{ e.border }};font-size:14px;" style-hover="background:color-mix(in srgb, var(--color-accent) 5%, transparent);">
+                <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+                  <span style="width:36px;height:36px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:{{ e.bg }};color:{{ e.fg }};">{{ e.initials }}</span>
+                  <div style="min-width:0;"><div style="color:var(--color-text);text-decoration:underline;text-decoration-color:var(--color-accent-300);text-underline-offset:3px;">{{ e.name }}</div><div style="font-size:12px;color:var(--color-neutral-600);">{{ e.role }}</div></div>
+                </div>
+                <span style="color:var(--color-neutral-600);">{{ e.dept }}</span>
+                <span style="color:var(--color-neutral-600);">{{ e.loc }}</span>
+                <span style="color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ e.start }}</span>
+                <span><span class="tag {{ e.tagClass }}">{{ e.status }}</span></span>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noEmp }}" hint-placeholder-val="{{ false }}"><div style="padding:48px 20px;text-align:center;font-size:14px;color:var(--color-neutral-600);font-style:italic;">No employees match your filters.</div></sc-if>
+          </div>
+        </div>
+        <div style="padding:12px 20px;border-top:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-600);">Showing {{ empCount }} of 12 employees</div>
+      </section>
+</sc-if>
+
+<sc-if value="{{ isTimeoff }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div>
+          <h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Time off</h1>
+          <p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Review requests and see who's out across the Band.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-primary" onClick="{{ onNewRequest }}">New request</button></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;">
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Pending review</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">{{ pendingCount }}</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">Oldest submitted 2 days ago</div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Out today</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">3</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">2 vacation · 1 parental</div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Approved this month</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">{{ approvedMonth }}</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-accent-700);">+4 vs. September</div>
+        </div>
+      </div>
+      <sc-if value="{{ showTeamCal }}" hint-placeholder-val="{{ true }}">
+      <section class="card" data-screen-label="Who's out" style="padding:0;margin-top:24px;">
+        <div style="padding:14px 20px;border-bottom:1px solid var(--color-divider);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
+          <div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Who's out</h2><div style="font-size:12px;color:var(--color-neutral-600);">Approved and pending leave · {{ calScope }}</div></div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button class="btn btn-ghost btn-icon" aria-label="Previous month" onClick="{{ calPrev }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+            <span style="min-width:140px;text-align:center;font-family:var(--font-heading);font-weight:600;font-size:19px;">{{ calLabel }}</span>
+            <button class="btn btn-ghost btn-icon" aria-label="Next month" onClick="{{ calNext }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+            <button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;" onClick="{{ calToday }}">Today</button>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <sc-for list="{{ calViews }}" as="v" hint-placeholder-count="2"><button onClick="{{ v.go }}" style="display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:12px;font-family:var(--font-body);cursor:pointer;border:1px solid {{ v.border }};background:{{ v.bg }};color:{{ v.fg }};">{{ v.label }}</button></sc-for>
+          </div>
+        </div>
+        <sc-if value="{{ isCalView }}" hint-placeholder-val="{{ true }}">
+          <div style="overflow-x:auto;"><div style="min-width:700px;">
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-bottom:1px solid var(--color-divider);">
+              <sc-for list="{{ calDow }}" as="d" hint-placeholder-count="7"><div style="padding:8px 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600);">{{ d }}</div></sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));">
+              <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
+                <div style="min-height:104px;padding:6px 6px 8px;box-sizing:border-box;border-right:{{ c.br }};border-top:{{ c.bt }};background:{{ c.bg }};display:flex;flex-direction:column;gap:3px;min-width:0;">
+                  <span style="align-self:flex-start;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-feature-settings:'tnum';color:{{ c.numColor }};border:1px solid {{ c.ring }};">{{ c.day }}</span>
+                  <sc-for list="{{ c.people }}" as="p" hint-placeholder-count="0">
+                    <div style="position:relative;" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}">
+                      <button onClick="{{ p.open }}" onFocus="{{ p.enter }}" onBlur="{{ p.leave }}" aria-label="{{ p.title }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;padding:2px 6px;border-radius:var(--radius-sm);font-size:11px;line-height:1.35;border:1px {{ p.line }} {{ p.stroke }};background:{{ p.bg }};color:var(--color-text);white-space:nowrap;overflow:hidden;" style-hover="border-color:var(--color-accent-700);"><span style="overflow:hidden;text-overflow:ellipsis;">{{ p.first }}</span><span style="font-size:10px;letter-spacing:.06em;color:var(--color-accent-800);font-feature-settings:'tnum';">{{ p.abbr }}</span></button>
+                      <sc-if value="{{ p.hover }}" hint-placeholder-val="{{ false }}">
+                        <div class="card elev-lg" style="position:fixed;top:{{ p.tipT }};bottom:{{ p.tipB }};left:{{ p.tipL }};z-index:60;width:240px;box-sizing:border-box;padding:12px 14px;background:var(--color-bg);pointer-events:none;display:flex;flex-direction:column;gap:6px;">
+                          <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;background:{{ p.avBg }};color:{{ p.avFg }};">{{ p.initials }}</span><div style="min-width:0;"><div style="font-size:14px;">{{ p.name }}</div><div style="font-size:12px;color:var(--color-neutral-600);">{{ p.type }} leave</div></div></div>
+                          <div style="font-size:13px;font-feature-settings:'tnum';">{{ p.range }} · {{ p.daysLabel }}</div>
+                          <sc-if value="{{ p.note }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;font-style:italic;color:var(--color-neutral-600);">{{ p.note }}</div></sc-if>
+                          <div><span class="tag {{ p.tagClass }}">{{ p.status }}</span></div>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ c.more }}" hint-placeholder-val="{{ false }}"><button onClick="{{ c.showList }}" style="all:unset;cursor:pointer;font-size:11px;color:var(--color-accent-700);padding:0 6px;">{{ c.more }}</button></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div></div>
+        </sc-if>
+        <sc-if value="{{ isListView }}" hint-placeholder-val="{{ false }}">
+          <div style="overflow-x:auto;"><div style="min-width:640px;">
+            <div style="display:grid;grid-template-columns:170px minmax(0,2fr) minmax(0,1fr) 100px 110px;gap:16px;padding:10px 20px;border-bottom:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-600);"><span>Dates</span><span>Employee</span><span>Type</span><span style="text-align:right;">Days in month</span><span style="text-align:right;">Status</span></div>
+            <sc-for list="{{ calList }}" as="r" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:170px minmax(0,2fr) minmax(0,1fr) 100px 110px;gap:16px;align-items:center;padding:12px 20px;border-top:{{ r.border }};font-size:14px;">
+                <span style="font-feature-settings:'tnum';">{{ r.dates }}</span>
+                <a href="#" onClick="{{ r.open }}" style="display:flex;align-items:center;gap:10px;min-width:0;text-decoration:none;color:var(--color-text);"><span style="width:26px;height:26px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;background:{{ r.bg }};color:{{ r.fg }};">{{ r.initials }}</span>{{ r.name }}</a>
+                <span style="color:var(--color-neutral-600);">{{ r.type }}</span>
+                <span style="text-align:right;font-feature-settings:'tnum';">{{ r.work }}</span>
+                <div style="display:flex;justify-content:flex-end;"><span class="tag {{ r.tagClass }}">{{ r.status }}</span></div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ calListEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:32px 20px;text-align:center;font-size:14px;font-style:italic;color:var(--color-neutral-600);">No one is out this month.</div></sc-if>
+          </div></div>
+        </sc-if>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;padding:10px 20px;border-top:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-600);">
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:14px;height:10px;border-radius:2px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 14%, transparent);"></span>Approved</span>
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:14px;height:10px;border-radius:2px;border:1px dashed var(--color-neutral-500);"></span>Pending</span>
+          <span>Weekends are not counted.</span>
+        </div>
+      </section>
+      </sc-if>
+      <section class="card" style="padding:0;margin-top:24px;">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
+          <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">All requests</h2>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;"><sc-for list="{{ tfChips }}" as="c" hint-placeholder-count="5"><button onClick="{{ c.go }}" style="padding:4px 12px;border-radius:999px;font-size:12px;font-family:var(--font-body);cursor:pointer;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};">{{ c.label }}</button></sc-for></div>
+        </div>
+        <div style="overflow-x:auto;"><div style="min-width:640px;">
+          <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,.8fr) minmax(0,1.6fr) 50px 170px;gap:16px;padding:10px 20px;border-bottom:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-600);"><span>Employee</span><span>Type</span><span>Dates</span><span style="text-align:right;">Days</span><span style="text-align:right;">Status</span></div>
+          <sc-for list="{{ tfRows }}" as="r" hint-placeholder-count="6">
+            <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,.8fr) minmax(0,1.6fr) 50px 170px;gap:16px;align-items:center;padding:12px 20px;border-top:{{ r.border }};font-size:14px;">
+              <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+                <span style="width:28px;height:28px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;background:{{ r.bg }};color:{{ r.fg }};">{{ r.initials }}</span>
+                <div style="min-width:0;"><div>{{ r.name }}</div><div style="font-size:12px;color:var(--color-neutral-600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.note }}</div></div>
+              </div>
+              <span style="color:var(--color-neutral-600);">{{ r.type }}</span>
+              <span style="color:var(--color-neutral-600);">{{ r.range }}</span>
+              <span style="text-align:right;font-feature-settings:'tnum';">{{ r.days }}</span>
+              <div style="display:flex;justify-content:flex-end;">
+                <sc-if value="{{ r.showActions }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;"><button class="btn btn-ghost" style="padding:4px 10px;font-size:13px;" onClick="{{ r.onDecline }}">Decline</button><button class="btn btn-primary" style="padding:4px 10px;font-size:13px;" onClick="{{ r.onApprove }}">Approve</button></div></sc-if>
+                <sc-if value="{{ r.showStatus }}" hint-placeholder-val="{{ true }}"><span class="tag {{ r.tagClass }}">{{ r.status }}</span></sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div></div>
+      </section>
+</sc-if>
+
+<sc-if value="{{ isRecruiting }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div>
+          <h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Recruiting</h1>
+          <p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Track open roles and move candidates through your hiring pipeline.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-primary" onClick="{{ onPostRoleBtn }}">Post a role</button></div>
+      </div>
+      <h2 style="margin:0 0 12px;font-family:var(--font-heading);font-weight:600;font-size:22px;">Open roles <span style="font-weight:400;color:var(--color-neutral-600);">· {{ openRoleCount }}</span></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;">
+        <sc-for list="{{ roleRows }}" as="o" hint-placeholder-count="4">
+          <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;"><span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);">{{ o.department }}</span><sc-if value="{{ o.viaAgent }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-style:italic;color:var(--color-accent-700);">via Raven</span></sc-if></div>
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.2;">{{ o.title }}</div>
+            <div style="font-size:12px;color:var(--color-neutral-600);">{{ o.location }}</div>
+            <div style="flex:1;min-height:16px;"></div>
+            <div style="display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-600);"><span><span style="color:var(--color-text);font-feature-settings:'tnum';">{{ o.applicants }}</span> applicants</span><span>{{ o.daysOpen }}d open</span></div>
+          </div>
+        </sc-for>
+      </div>
+      <h2 style="margin:36px 0 12px;font-family:var(--font-heading);font-weight:600;font-size:22px;">Candidate pipeline</h2>
+      <div style="overflow-x:auto;padding-bottom:8px;">
+        <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;min-width:900px;">
+          <sc-for list="{{ stageCols }}" as="col" hint-placeholder-count="5">
+            <div style="border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:8px;display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 6px 4px;font-size:13px;"><span style="display:flex;align-items:center;gap:8px;"><span style="width:8px;height:8px;border-radius:50%;background:{{ col.color }};"></span>{{ col.stage }}</span><span style="color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ col.count }}</span></div>
+              <sc-for list="{{ col.items }}" as="c" hint-placeholder-count="2">
+                <div class="card" style="padding:12px;">
+                  <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <span style="width:28px;height:28px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;background:{{ c.bg }};color:{{ c.fg }};">{{ c.initials }}</span>
+                    <div style="min-width:0;"><div style="font-size:14px;">{{ c.name }}</div><div style="font-size:12px;color:var(--color-neutral-600);text-wrap:pretty;">{{ c.role }}</div></div>
+                  </div>
+                  <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+                    <span style="color:{{ c.metaColor }};letter-spacing:1px;">{{ c.meta }}</span>
+                    <sc-if value="{{ c.canAdvance }}" hint-placeholder-val="{{ true }}"><button onClick="{{ c.advance }}" style="border:none;background:transparent;cursor:pointer;font-family:var(--font-body);font-size:12px;color:var(--color-accent-700);padding:2px 6px;border-radius:var(--radius-sm);" style-hover="background:var(--color-accent-100);">Advance →</button></sc-if>
+                  </div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ col.empty }}" hint-placeholder-val="{{ false }}"><div style="border:1px dashed var(--color-divider);border-radius:var(--radius-md);padding:16px;text-align:center;font-size:12px;color:var(--color-neutral-600);font-style:italic;">No candidates</div></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+</sc-if>
+
+<sc-if value="{{ isPayroll }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div>
+          <h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Payroll</h1>
+          <p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Semi-monthly payroll for 141 employees, paid in CAD.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-ghost">Download reports</button></div>
+      </div>
+      <section class="card" style="padding:0;margin-bottom:24px;">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;">
+          <div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Approved timesheets</h2><div style="font-size:12px;color:var(--color-neutral-600);">{{ queueLabel }}</div></div>
+          <sc-if value="{{ canPayAll }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary" style="padding:4px 12px;font-size:13px;" onClick="{{ payAll }}">Process all</button></sc-if>
+        </div>
+        <div style="padding:4px 20px;">
+          <sc-if value="{{ noQueue }}" hint-placeholder-val="{{ false }}"><div style="padding:16px 0;font-size:14px;color:var(--color-neutral-600);font-style:italic;">No approved timesheets waiting for payment.</div></sc-if>
+          <sc-for list="{{ payQueue }}" as="q" hint-placeholder-count="2">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:{{ q.border }};">
+              <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+                <span style="width:32px;height:32px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;background:{{ q.bg }};color:{{ q.fg }};">{{ q.initials }}</span>
+                <div><a href="#" onClick="{{ q.open }}" style="font-size:14px;color:var(--color-text);text-decoration:none;" style-hover="text-decoration:underline;">{{ q.person }}</a><div style="font-size:12px;color:var(--color-neutral-600);">{{ q.week }} · {{ q.hours }} h · approved by {{ q.approvedBy }}</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;">
+                <span style="font-size:14px;font-feature-settings:'tnum';">{{ q.gross }}</span>
+                <sc-if value="{{ q.canPay }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary" style="padding:4px 12px;font-size:13px;" onClick="{{ q.pay }}">Process payment</button></sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      <section style="background:var(--color-neutral-900);color:var(--color-neutral-200);border-radius:var(--radius-lg);padding:32px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;">
+        <div>
+          <div style="font-size:13px;color:var(--color-neutral-400);">Next payroll run</div>
+          <h2 style="margin:4px 0 0;font-family:var(--font-heading);font-weight:500;font-size:28px;color:var(--color-neutral-100);">Oct 1 – Oct 15, 2026</h2>
+          <div style="margin-top:24px;font-size:12px;color:var(--color-neutral-400);">Estimated gross pay (CAD)</div>
+          <div style="margin-top:4px;font-family:var(--font-heading);font-size:56px;line-height:1;color:var(--color-neutral-100);font-feature-settings:'tnum';">$1,284,500</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;align-items:flex-start;">
+          <div style="display:flex;gap:32px;font-size:14px;">
+            <div><div style="font-size:12px;color:var(--color-neutral-400);">Pay date</div><div style="margin-top:4px;color:var(--color-neutral-100);">Oct 17, 2026</div></div>
+            <div><div style="font-size:12px;color:var(--color-neutral-400);">Employees</div><div style="margin-top:4px;color:var(--color-neutral-100);">141</div></div>
+            <div><div style="font-size:12px;color:var(--color-neutral-400);">Approve by</div><div style="margin-top:4px;color:var(--color-accent-300);">Oct 15</div></div>
+          </div>
+          <button class="btn" style="border:1px solid var(--color-accent-300);color:var(--color-accent-200);background:transparent;" style-hover="background:color-mix(in srgb, var(--color-accent) 18%, transparent);">Review &amp; run payroll</button>
+        </div>
+      </section>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:24px;">
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">YTD gross payroll</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">$23.8M</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">+11% vs. last year</div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Avg. net per employee</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">$6,470</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">Per pay period</div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Employer CPP &amp; EI</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">$71.3K</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">This period</div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div style="font-size:13px;color:var(--color-neutral-600);">Runs this year</div>
+          <div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">19</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--color-accent-700);">All on time</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;align-items:flex-start;">
+        <section class="card" style="flex:1 1 260px;padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Cost breakdown</h2><div style="font-size:12px;color:var(--color-neutral-600);">Upcoming run</div></div>
+          <div style="padding:20px;">
+            <div style="display:flex;height:8px;border-radius:999px;overflow:hidden;gap:2px;"><sc-for list="{{ breakdown }}" as="b" hint-placeholder-count="4"><div style="width:{{ b.pct }};background:{{ b.color }};"></div></sc-for></div>
+            <div style="margin-top:18px;display:flex;flex-direction:column;gap:11px;"><sc-for list="{{ breakdown }}" as="b" hint-placeholder-count="4"><div style="display:flex;justify-content:space-between;font-size:14px;"><span style="display:flex;align-items:center;gap:10px;"><span style="width:10px;height:10px;border-radius:2px;background:{{ b.color }};"></span>{{ b.label }}</span><span style="color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ b.amount }}</span></div></sc-for></div>
+          </div>
+        </section>
+        <section class="card" style="flex:2 1 420px;padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Payroll history</h2></div>
+          <div style="overflow-x:auto;"><div style="min-width:520px;">
+            <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 70px;gap:16px;padding:10px 20px;border-bottom:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-600);"><span>Period</span><span>Pay date</span><span style="text-align:right;">Gross</span><span style="text-align:right;">Net</span><span style="text-align:right;">Status</span></div>
+            <sc-for list="{{ payRuns }}" as="p" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 70px;gap:16px;align-items:center;padding:12px 20px;border-top:{{ p.border }};font-size:14px;">
+                <span>{{ p.period }}</span><span style="color:var(--color-neutral-600);">{{ p.payDate }}</span><span style="text-align:right;font-feature-settings:'tnum';">{{ p.gross }}</span><span style="text-align:right;color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ p.net }}</span><span style="text-align:right;"><span class="tag tag-accent">Paid</span></span>
+              </div>
+            </sc-for>
+          </div></div>
+        </section>
+      </div>
+</sc-if>
+
+<sc-if value="{{ isVersions }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div>
+          <h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Version history</h1>
+          <p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Every change across HRIS, numbered and timestamped.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><span class="tag tag-outline">Visible to HR Admins only</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;"><sc-for list="{{ modChips }}" as="c" hint-placeholder-count="5"><button onClick="{{ c.go }}" style="padding:4px 12px;border-radius:999px;font-size:12px;font-family:var(--font-body);cursor:pointer;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};">{{ c.label }}</button></sc-for></div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+        <section class="card" style="flex:1 1 280px;max-width:380px;padding:0;">
+          <sc-for list="{{ verRows }}" as="v" hint-placeholder-count="6">
+            <button onClick="{{ v.select }}" style="display:flex;flex-direction:column;gap:4px;width:100%;text-align:left;padding:12px 16px;border:none;border-top:{{ v.border }};border-left:2px solid {{ v.mark }};background:{{ v.bg }};cursor:pointer;font-family:var(--font-body);color:var(--color-text);">
+              <span style="display:flex;align-items:center;gap:8px;"><span class="tag tag-outline" style="font-feature-settings:'tnum';">v{{ v.version }}</span><span style="font-size:14px;">{{ v.summary }}</span></span>
+              <span style="font-size:12px;color:var(--color-neutral-600);">{{ v.when }} · {{ v.author }}</span>
+            </button>
+          </sc-for>
+          <sc-if value="{{ noVer }}" hint-placeholder-val="{{ false }}"><div style="padding:24px;font-size:14px;color:var(--color-neutral-600);font-style:italic;">No changes in this module.</div></sc-if>
+        </section>
+        <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ true }}">
+          <section class="card" style="flex:2 1 420px;padding:0;">
+            <div style="padding:20px;border-bottom:1px solid var(--color-divider);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;"><span class="tag tag-outline" style="font-feature-settings:'tnum';">v{{ sel.version }}</span><span class="tag tag-accent">{{ sel.action }}</span><span style="font-size:12px;color:var(--color-neutral-600);">{{ sel.module }}</span></div>
+                <h2 style="margin:8px 0 0;font-family:var(--font-heading);font-weight:600;font-size:24px;">{{ sel.summary }}</h2>
+                <div style="font-size:14px;color:var(--color-neutral-600);">{{ sel.target }}</div>
+              </div>
+              <button class="btn btn-ghost" style="padding:4px 12px;font-size:13px;">Restore v{{ sel.prev }}</button>
+            </div>
+            <div style="padding:20px;border-bottom:1px solid var(--color-divider);display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;font-size:14px;">
+              <div><div style="font-size:12px;color:var(--color-neutral-600);">Version</div><div style="margin-top:4px;font-feature-settings:'tnum';">v{{ sel.version }}</div></div>
+              <div><div style="font-size:12px;color:var(--color-neutral-600);">Date and time</div><div style="margin-top:4px;">{{ sel.when }}</div></div>
+              <div><div style="font-size:12px;color:var(--color-neutral-600);">Changed by</div><div style="margin-top:4px;">{{ sel.author }}<div style="font-size:12px;color:var(--color-neutral-600);">{{ sel.authorRole }}</div></div></div>
+            </div>
+            <div style="padding:20px;">
+              <div style="display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1fr);gap:16px;padding:0 0 8px;font-size:12px;color:var(--color-neutral-600);"><span>Field</span><span>Before</span><span>After</span></div>
+              <sc-for list="{{ sel.changes }}" as="ch" hint-placeholder-count="2">
+                <div style="display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1fr);gap:16px;padding:10px 0;border-top:1px solid var(--color-divider);font-size:14px;">
+                  <span style="color:var(--color-neutral-600);">{{ ch.field }}</span>
+                  <span style="color:var(--color-neutral-600);text-decoration:line-through;">{{ ch.before }}</span>
+                  <span style="color:var(--color-accent-800);">{{ ch.after }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </sc-if>
+      </div>
+</sc-if>
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+      <a href="#" onClick="{{ nav.people.go }}" style="display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;font-size:14px;color:var(--color-neutral-600);text-decoration:none;" style-hover="color:var(--color-text);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>All people</a>
+      <header class="card" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:20px;min-width:0;">
+          <span style="width:80px;height:80px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:30px;background:{{ p.bg }};color:{{ p.fg }};">{{ p.initials }}</span>
+          <div style="min-width:0;">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;"><h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:34px;line-height:1.1;">{{ p.name }}</h1><span class="tag {{ p.tagClass }}">{{ p.status }}</span></div>
+            <div style="margin-top:4px;font-size:14px;color:var(--color-neutral-600);">{{ p.role }} · {{ p.dept }}</div>
+            <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:var(--color-neutral-600);">
+              <span style="display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ p.loc }}</span>
+              <a href="mailto:{{ p.email }}" style="display:flex;align-items:center;gap:6px;color:var(--color-neutral-600);text-decoration:none;" style-hover="color:var(--color-text);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>{{ p.email }}</a>
+              <span style="display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>{{ p.phone }}</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;"><a href="mailto:{{ p.email }}" class="btn btn-ghost" style="text-decoration:none;">Message</a><button class="btn btn-primary">Edit profile</button></div>
+      </header>
+
+      <div role="tablist" style="display:flex;gap:4px;margin-top:24px;border-bottom:1px solid var(--color-divider);">
+        <sc-for list="{{ profileTabs }}" as="t" hint-placeholder-count="3">
+          <button role="tab" onClick="{{ t.go }}" style="padding:10px 14px;margin-bottom:-1px;border:none;border-bottom:2px solid {{ t.border }};background:transparent;cursor:pointer;font-family:var(--font-body);font-size:14px;color:{{ t.fg }};" style-hover="color:var(--color-text);">{{ t.label }}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ tabOverview }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;align-items:stretch;">
+          <section class="card" style="padding:0;flex:2 1 420px;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Employment</h2></div></div>
+            <div style="padding:20px;"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px 24px;">
+              <div><div style="font-size:12px;color:var(--color-neutral-600);">Employee ID</div><div style="margin-top:4px;font-size:14px;"><span style="font-feature-settings:'tnum';">{{ p.id }}</span></div></div><div><div style="font-size:12px;color:var(--color-neutral-600);">Employment type</div><div style="margin-top:4px;font-size:14px;">{{ p.type }}</div></div><div><div style="font-size:12px;color:var(--color-neutral-600);">Start date</div><div style="margin-top:4px;font-size:14px;">{{ p.start }}</div></div><div><div style="font-size:12px;color:var(--color-neutral-600);">Tenure</div><div style="margin-top:4px;font-size:14px;">{{ p.tenure }}</div></div><div><div style="font-size:12px;color:var(--color-neutral-600);">Manager</div><div style="margin-top:4px;font-size:14px;">{{ p.manager }}</div></div><div><div style="font-size:12px;color:var(--color-neutral-600);">Work location</div><div style="margin-top:4px;font-size:14px;">{{ p.loc }}</div></div>
+            </div></div>
+          </section>
+          <section class="card" style="padding:0;flex:1 1 260px;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Compensation</h2></div></div>
+            <div style="padding:20px;"><div style="font-size:12px;color:var(--color-neutral-600);">Annual base salary (CAD)</div>
+              <div style="margin-top:4px;font-family:var(--font-heading);font-size:34px;line-height:1.1;font-feature-settings:'tnum';">{{ p.salary }}</div>
+              <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;"><div><div style="font-size:12px;color:var(--color-neutral-600);">Pay frequency</div><div style="margin-top:4px;font-size:14px;">Semi-monthly</div></div><div><div style="font-size:12px;color:var(--color-neutral-600);">Last change</div><div style="margin-top:4px;font-size:14px;">+4.5% · Apr 2026</div></div></div></div>
+          </section>
+        </div>
+        <div style="margin-top:24px;">
+          <section class="card" style="padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Direct reports</h2><div style="font-size:12px;color:var(--color-neutral-600);">{{ reportsLabel }}</div></div></div>
+            <div style="padding:20px;"><sc-if value="{{ noReports }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--color-neutral-600);font-style:italic;">No direct reports.</div></sc-if>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+                <sc-for list="{{ reports }}" as="r" hint-placeholder-count="0">
+                  <a href="#" onClick="{{ r.open }}" style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--color-divider);border-radius:var(--radius-md);text-decoration:none;color:var(--color-text);" style-hover="border-color:var(--color-accent);">
+                    <span style="width:28px;height:28px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;background:{{ r.bg }};color:{{ r.fg }};">{{ r.initials }}</span>
+                    <span style="min-width:0;"><span style="display:block;font-size:14px;">{{ r.name }}</span><span style="display:block;font-size:12px;color:var(--color-neutral-600);">{{ r.role }}</span></span>
+                  </a>
+                </sc-for>
+              </div></div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tabTimeoff }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:24px;">
+          <sc-for list="{{ balances }}" as="b" hint-placeholder-count="3">
+            <div class="card" style="padding:20px;">
+              <div style="font-size:13px;color:var(--color-neutral-600);">{{ b.type }}</div>
+              <div style="margin-top:8px;font-family:var(--font-heading);font-size:34px;line-height:1;font-feature-settings:'tnum';">{{ b.left }}<span style="font-family:var(--font-body);font-size:13px;color:var(--color-neutral-600);"> / {{ b.allowance }} days</span></div>
+              <div style="margin-top:12px;height:4px;background:var(--color-neutral-200);border-radius:999px;overflow:hidden;"><div style="height:100%;width:{{ b.pct }};background:var(--color-accent);"></div></div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:24px;">
+          <section class="card" style="padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Request history</h2></div></div>
+            <div style="padding:20px;"><sc-if value="{{ noPReq }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--color-neutral-600);font-style:italic;">No time-off requests yet.</div></sc-if>
+              <sc-for list="{{ pReqs }}" as="r" hint-placeholder-count="1">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:{{ r.border }};font-size:14px;">
+                  <div><div>{{ r.type }}</div><div style="font-size:12px;color:var(--color-neutral-600);">{{ r.range }} · {{ r.days }} days</div></div>
+                  <span class="tag {{ r.tagClass }}">{{ r.status }}</span>
+                </div>
+              </sc-for></div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tabTimesheets }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;align-items:flex-start;">
+          <section class="card" style="flex:2 1 520px;padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Weekly timesheet</h2><span class="tag {{ ts.tagClass }}">{{ ts.statusLabel }}</span></div>
+                <div style="font-size:12px;color:var(--color-neutral-600);">{{ ts.weekLabel }}</div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <sc-for list="{{ weekChips }}" as="c" hint-placeholder-count="3"><button onClick="{{ c.go }}" style="padding:4px 12px;border-radius:999px;font-size:12px;font-family:var(--font-body);cursor:pointer;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};">{{ c.label }}</button></sc-for>
+              </div>
+            </div>
+            <div style="padding:20px;">
+              <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;">
+                <sc-for list="{{ ts.days }}" as="d" hint-placeholder-count="7">
+                  <label style="display:flex;flex-direction:column;gap:6px;min-width:0;">
+                    <span style="font-size:12px;color:var(--color-neutral-600);">{{ d.dow }}<span style="display:block;font-size:11px;">{{ d.date }}</span></span>
+                    <sc-if value="{{ ts.editable }}" hint-placeholder-val="{{ true }}"><input class="input" type="number" min="0" max="24" step="0.5" value="{{ d.val }}" onChange="{{ d.onChange }}" aria-label="Hours {{ d.dow }}" style="width:100%;box-sizing:border-box;text-align:center;font-feature-settings:'tnum';padding:8px 2px;"></sc-if>
+                    <sc-if value="{{ ts.readonly }}" hint-placeholder-val="{{ false }}"><span style="padding:8px 2px;text-align:center;border:1px solid var(--color-divider);border-radius:var(--radius-md);font-size:14px;font-feature-settings:'tnum';">{{ d.val }}</span></sc-if>
+                  </label>
+                </sc-for>
+              </div>
+              <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--color-divider);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;">
+                <div style="display:flex;gap:28px;">
+                  <div><div style="font-size:12px;color:var(--color-neutral-600);">Total hours</div><div style="font-family:var(--font-heading);font-size:28px;line-height:1.1;font-feature-settings:'tnum';">{{ ts.total }}</div></div>
+                  <div><div style="font-size:12px;color:var(--color-neutral-600);">Est. gross (CAD)</div><div style="font-family:var(--font-heading);font-size:28px;line-height:1.1;font-feature-settings:'tnum';">{{ ts.gross }}</div></div>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <sc-if value="{{ ts.editable }}" hint-placeholder-val="{{ true }}"><button class="btn btn-primary" onClick="{{ ts.onSubmit }}" disabled="{{ ts.cannotSubmit }}">Submit for approval</button></sc-if>
+                  <sc-if value="{{ ts.managerCanAct }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ ts.onSendBack }}">Send back</button><button class="btn btn-primary" onClick="{{ ts.onApprove }}">Approve timesheet</button></sc-if>
+                  <sc-if value="{{ ts.payrollCanAct }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary" onClick="{{ ts.onPay }}">Process payment</button></sc-if>
+                </div>
+              </div>
+              <sc-if value="{{ ts.waitText }}" hint-placeholder-val="{{ false }}"><div style="margin-top:14px;font-size:13px;font-style:italic;color:var(--color-neutral-600);">{{ ts.waitText }}</div></sc-if>
+            </div>
+          </section>
+          <section class="card" style="flex:1 1 260px;padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Approval path</h2><div style="font-size:12px;color:var(--color-neutral-600);">Who is notified at each step</div></div>
+            <div style="padding:20px;display:flex;flex-direction:column;">
+              <sc-for list="{{ tsSteps }}" as="st" hint-placeholder-count="4">
+                <div style="display:flex;gap:12px;">
+                  <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span style="width:26px;height:26px;flex-shrink:0;border-radius:50%;border:1px solid {{ st.ring }};display:flex;align-items:center;justify-content:center;font-size:12px;color:{{ st.fg }};font-feature-settings:'tnum';">
+                      <sc-if value="{{ st.done }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+                      <sc-if value="{{ st.notDone }}" hint-placeholder-val="{{ true }}">{{ st.num }}</sc-if>
+                    </span>
+                    <sc-if value="{{ st.line }}" hint-placeholder-val="{{ true }}"><span style="width:1px;flex:1;min-height:22px;background:{{ st.lineColor }};"></span></sc-if>
+                  </div>
+                  <div style="padding-bottom:18px;min-width:0;">
+                    <div style="font-size:14px;color:{{ st.labelColor }};">{{ st.label }}</div>
+                    <div style="font-size:12px;color:var(--color-neutral-600);">{{ st.sub }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </div>
+        <div style="margin-top:24px;">
+          <section class="card" style="padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Timesheet history</h2></div>
+            <div style="padding:4px 20px;">
+              <sc-if value="{{ noTsHist }}" hint-placeholder-val="{{ false }}"><div style="padding:16px 0;font-size:14px;color:var(--color-neutral-600);font-style:italic;">No timesheets submitted yet.</div></sc-if>
+              <sc-for list="{{ tsHist }}" as="h" hint-placeholder-count="2">
+                <div onClick="{{ h.open }}" style="cursor:pointer;display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) 140px;gap:16px;align-items:center;padding:12px 0;border-top:{{ h.border }};font-size:14px;" style-hover="color:var(--color-accent-800);">
+                  <span>{{ h.week }}</span><span style="color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ h.hours }} h</span><span style="color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ h.gross }}</span><span style="text-align:right;"><span class="tag {{ h.tagClass }}">{{ h.statusLabel }}</span></span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tabDocs }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:24px;">
+          <section class="card" style="padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Documents</h2><div style="font-size:12px;color:var(--color-neutral-600);">Contracts, tax forms, and reviews</div></div></div>
+            <div style="padding:20px;"><sc-for list="{{ docs }}" as="d" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:{{ d.border }};">
+                  <span style="width:36px;height:36px;flex-shrink:0;border:1px solid var(--color-divider);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-accent-700);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg></span>
+                  <div style="flex:1;min-width:0;"><div style="font-size:14px;">{{ d.name }}</div><div style="font-size:12px;color:var(--color-neutral-600);">Updated {{ d.updated }}</div></div>
+                  <a href="#" style="font-size:12px;">Download</a>
+                </div>
+              </sc-for></div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showPVer }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:24px;">
+          <section class="card" style="padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Record version history</h2><div style="font-size:12px;color:var(--color-neutral-600);">Only visible to HR Admins</div></div><a href="#" onClick="{{ nav.versions.go }}" style="font-size:12px;">View all</a></div>
+            <div style="padding:20px;"><sc-if value="{{ noPVer }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--color-neutral-600);font-style:italic;">No changes recorded for this employee yet.</div></sc-if>
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <sc-for list="{{ pVers }}" as="v" hint-placeholder-count="0">
+                  <div style="display:flex;gap:12px;align-items:flex-start;">
+                    <span class="tag tag-outline" style="font-feature-settings:'tnum';">v{{ v.version }}</span>
+                    <div style="min-width:0;"><div style="font-size:14px;">{{ v.summary }}</div><div style="font-size:12px;color:var(--color-neutral-600);">{{ v.when }} · {{ v.author }}</div><div style="margin-top:4px;font-size:12px;color:var(--color-neutral-600);">{{ v.diff }}</div></div>
+                  </div>
+                </sc-for>
+              </div></div>
+          </section>
+        </div>
+      </sc-if>
+</sc-if>
+    </div>
+  </main>
+
+  <aside data-screen-label="Assistant" aria-label="Raven assistant" style="width:{{ panelW }};flex-shrink:0;overflow:hidden;transition:width .32s cubic-bezier(.2,.7,.2,1);border-left:{{ panelBorder }};background:var(--color-bg);">
+    <div style="width:{{ innerW }};height:100%;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid var(--color-divider);">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="width:30px;height:30px;border:1px solid var(--color-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-accent-700);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h.01"></path><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"></path><path d="m20 7 2 .5-2 .5"></path><path d="M10 18v3"></path><path d="M14 17.75V21"></path><path d="M7 18a6 6 0 0 0 3.84-10.61"></path></svg>
+          </span>
+          <div>
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.1;">Raven</div>
+            <div style="font-size:12px;color:var(--color-neutral-600);font-style:italic;">Acts on your behalf as {{ role }}</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:4px;">
+          <button class="btn btn-ghost btn-icon" aria-label="New conversation" title="New conversation" onClick="{{ onReset }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+          </button>
+          <button class="btn btn-ghost btn-icon" aria-label="Minimize assistant" title="Minimize" onClick="{{ onClose }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M15 3v18"></path><path d="m8 9 3 3-3 3"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <div ref="{{ scrollRef }}" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px;">
+        <sc-for list="{{ msgRows }}" as="m" hint-placeholder-count="1">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <sc-if value="{{ m.isUser }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-end;max-width:85%;padding:9px 13px;border:1px solid var(--color-accent-300);border-radius:var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);font-size:14px;line-height:1.5;">{{ m.text }}</div>
+            </sc-if>
+            <sc-if value="{{ m.isAgent }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:14px;line-height:1.6;white-space:pre-wrap;text-wrap:pretty;">{{ m.text }}</div>
+            </sc-if>
+            <sc-if value="{{ m.hasAction }}" hint-placeholder-val="{{ false }}">
+              <div class="card" style="padding:0;border-color:{{ m.cardBorder }};">
+                <div style="padding:10px 14px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                  <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);">{{ m.kicker }}</span>
+                  <span style="font-size:12px;font-style:italic;color:var(--color-neutral-600);">{{ m.stateLabel }}</span>
+                </div>
+                <div style="padding:12px 14px;display:flex;flex-direction:column;gap:6px;">
+                  <div style="font-family:var(--font-heading);font-weight:600;font-size:18px;">{{ m.title }}</div>
+                  <sc-for list="{{ m.rows }}" as="row" hint-placeholder-count="2">
+                    <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px;">
+                      <span style="color:var(--color-neutral-600);">{{ row.k }}</span><span style="text-align:right;">{{ row.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ m.isPending }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:10px 14px;border-top:1px solid var(--color-divider);display:flex;justify-content:flex-end;gap:8px;">
+                    <button class="btn btn-ghost" style="padding:4px 12px;font-size:13px;" onClick="{{ m.onCancel }}">Cancel</button>
+                    <button class="btn btn-primary" style="padding:4px 12px;font-size:13px;" onClick="{{ m.onConfirm }}">{{ m.confirmLabel }}</button>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{ thinking }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;font-style:italic;color:var(--color-neutral-600);">
+            <span style="display:flex;gap:3px;">{{ dots }}</span>{{ thinking }}
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showSuggestions }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+            <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600);">Try asking</div>
+            <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="4">
+              <button onClick="{{ s.onClick }}" style="text-align:left;padding:9px 12px;font-family:var(--font-body);font-size:13px;background:transparent;color:var(--color-text);border:1px solid var(--color-divider);border-radius:var(--radius-md);cursor:pointer;" style-hover="border-color:var(--color-accent);background:color-mix(in srgb, var(--color-accent) 6%, transparent);">{{ s.label }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="padding:14px 16px 16px;border-top:1px solid var(--color-divider);">
+        <div style="display:flex;align-items:flex-end;gap:8px;border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:6px 6px 6px 12px;background:var(--color-bg);" style-focus-within="border-color:var(--color-accent);">
+          <textarea ref="{{ inputRef }}" rows="1" value="{{ draft }}" onChange="{{ onDraft }}" onKeyDown="{{ onKey }}" placeholder="Ask or tell Raven to do something…" style="flex:1;resize:none;border:none;outline:none;background:transparent;font-family:var(--font-body);font-size:14px;line-height:1.5;padding:5px 0;color:var(--color-text);max-height:120px;"></textarea>
+          <button class="btn btn-primary btn-icon" aria-label="Send" onClick="{{ onSend }}" disabled="{{ sendDisabled }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg>
+          </button>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--color-neutral-600);font-style:italic;">{{ footNote }}</div>
+      </div>
+    </div>
+  </aside>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position:fixed;left:264px;bottom:24px;z-index:20;display:flex;align-items:center;gap:10px;max-width:420px;padding:12px 16px;background:var(--color-bg);border:1px solid var(--color-accent);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);font-size:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>{{ toast }}
+    </div>
+  </sc-if>
+  <sc-if value="{{ showLauncher }}" hint-placeholder-val="{{ true }}">
+    <button onClick="{{ onOpen }}" aria-label="Open Raven" style="position:fixed;right:24px;bottom:24px;display:flex;align-items:center;gap:10px;padding:10px 18px 10px 12px;font-family:var(--font-body);font-size:14px;color:var(--color-text);background:var(--color-bg);border:1px solid var(--color-accent);border-radius:999px;box-shadow:var(--shadow-md);cursor:pointer;" style-hover="background:var(--color-accent-100);" style-active="background:var(--color-accent-200);">
+      <span style="width:28px;height:28px;border:1px solid var(--color-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-accent-700);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h.01"></path><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"></path><path d="m20 7 2 .5-2 .5"></path><path d="M10 18v3"></path><path d="M14 17.75V21"></path><path d="M7 18a6 6 0 0 0 3.84-10.61"></path></svg>
+      </span>
+      Ask Raven
+      <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ false }}"><span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent);"></span></sc-if>
+    </button>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;chatWidth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:400,&quot;min&quot;:320,&quot;max&quot;:560,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;requireConfirm&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;startOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const PROFILES = { 'HR Admin': { name: 'Tom Adeyemi', initials: 'TA' }, 'Manager': { name: 'Marcus Chen', initials: 'MC' }, 'Employee': { name: 'Amara Okafor', initials: 'AO' } };
+const PALETTE = [['var(--color-neutral-900)','var(--color-neutral-100)'],['var(--color-accent-200)','var(--color-accent-900)'],['var(--color-accent-700)','var(--color-accent-100)'],['var(--color-neutral-300)','var(--color-neutral-900)'],['var(--color-neutral-500)','var(--color-neutral-100)']];
+const av = (ini) => PALETTE[(ini.charCodeAt(0) + ini.charCodeAt(1 % ini.length)) % PALETTE.length];
+const TREND = [['May',118],['Jun',122],['Jul',125],['Aug',129],['Sep',134],['Oct',141]];
+const DEPTS = [['Economic Development',30,'var(--color-neutral-900)'],['Education',26,'var(--color-neutral-500)'],['Health & Wellness',22,'var(--color-accent)'],['Public Works',20,'var(--color-accent-700)'],['Administration',18,'var(--color-neutral-300)'],['Lands & Housing',14,'var(--color-accent-300)'],['Finance',11,'var(--color-neutral-700)']];
+const EVENTS = [['Priya Nair','PN','Birthday','Oct 16'],['Tom Adeyemi','TA','6-year anniversary','Oct 18'],['Kenji Watanabe','KW','First day','Oct 19'],['Grace Liu','GL','Birthday','Oct 22']];
+const initRequests = () => [
+  { id: 't-1', name: 'Priya Nair', initials: 'PN', type: 'Vacation', range: 'Oct 26 – Oct 30, 2026', days: 5, status: 'Pending', note: 'Family trip' },
+  { id: 't-2', name: 'Hannah Cole', initials: 'HC', type: 'Cultural', range: 'Oct 20, 2026', days: 1, status: 'Pending', note: 'Attending a community ceremony' },
+  { id: 't-3', name: 'Kenji Watanabe', initials: 'KW', type: 'Sick', range: 'Oct 15 – Oct 16, 2026', days: 2, status: 'Pending', note: "Doctor's note attached" },
+  { id: 't-4', name: 'Marcus Bell', initials: 'MB', type: 'Parental', range: 'Sep 1 – Dec 1, 2026', days: 65, status: 'Approved', note: 'Parental leave', history: true },
+  { id: 't-5', name: 'Grace Liu', initials: 'GL', type: 'Vacation', range: 'Nov 9 – Nov 13, 2026', days: 5, status: 'Approved', note: '', history: true },
+  { id: 't-6', name: 'Noah Schmidt', initials: 'NS', type: 'Personal', range: 'Oct 8, 2026', days: 1, status: 'Declined', note: 'Conflicts with budget deadline', history: true },
+  { id: 't-7', name: 'Amara Okafor', initials: 'AO', type: 'Vacation', range: 'Dec 21, 2026 – Jan 2, 2027', days: 8, status: 'Approved', note: 'Holidays', history: true },
+  { id: 't-8', name: 'Daniel Reyes', initials: 'DR', type: 'Cultural', range: 'Oct 23, 2026', days: 1, status: 'Approved', note: 'Community gathering', history: true },
+  { id: 't-9', name: 'Noah Schmidt', initials: 'NS', type: 'Vacation', range: 'Oct 12 – Oct 14, 2026', days: 3, status: 'Approved', note: '', history: true },
+  { id: 't-10', name: 'Grace Liu', initials: 'GL', type: 'Sick', range: 'Oct 6, 2026', days: 1, status: 'Approved', note: '', history: true },
+  { id: 't-11', name: 'Tom Adeyemi', initials: 'TA', type: 'Personal', range: 'Nov 3, 2026', days: 1, status: 'Approved', note: '', history: true },
+];
+const CAL_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const CAL_TODAY = new Date(2026, 9, 14);
+const parseRange = (r) => { const p = String(r || '').split(/\s+[–-]\s+/); const end = new Date(p[p.length - 1]); if (isNaN(end)) return null; let start = end; if (p.length > 1) { start = new Date(/\d{4}/.test(p[0]) ? p[0] : p[0] + ', ' + end.getFullYear()); if (isNaN(start)) return null; } return [start, end]; };
+const workdays = (a, b) => { let n = 0; for (let d = new Date(a); d <= b; d.setDate(d.getDate() + 1)) if (d.getDay() % 6) n++; return n; };
+const initTasks = () => [
+  { label: 'Sign offer letter', done: true }, { label: 'Complete TD1 tax forms', done: true }, { label: 'Equipment issued', done: true },
+  { label: 'Benefits enrollment', done: false, key: 'benefit' }, { label: 'Cultural orientation', done: false, key: 'orientation' }, { label: 'Meet your buddy', done: false, key: 'buddy' },
+];
+const SUGGEST = {
+  'HR Admin': ['Summarize pending time-off requests', "Approve Hannah's personal day", 'Post a role for a Water Treatment Operator', "Mark Kenji's benefits enrollment as done"],
+  'Manager': ['Summarize pending time-off requests', 'Approve all pending requests', 'Who has celebrations this week?', "What's left on Kenji's onboarding?"],
+  'Employee': ['Request next Friday off', 'How many PTO days do I have?', 'Who has celebrations this week?'],
+};
+const welcome = (role) => ({ id: 'w', from: 'agent', text: `Hi ${PROFILES[role].name.split(' ')[0]} — I'm Raven. I can answer questions about the Band's HR and take actions for you: approve requests, post roles, update onboarding and more. I'll always show you what I'm about to do first.` });
+let uid = 0;
+const EMP = [['Amara Okafor','Director of Education','Education','Oliver, BC','Mar 11, 2019','Active','AO'],['Daniel Reyes','Band Administrator','Administration','Osoyoos, BC','Jun 1, 2017','Active','DR'],['Priya Nair','Early Childhood Educator','Education','Oliver, BC','Jan 18, 2021','Active','PN'],['Marcus Bell','Housing Coordinator','Lands & Housing','Osoyoos, BC','Aug 2, 2022','On leave','MB'],['Lena Fischer','Health Director','Health & Wellness','Osoyoos, BC','Feb 24, 2020','Active','LF'],['Kenji Watanabe','Public Works Technician','Public Works','Osoyoos, BC','Oct 5, 2026','Onboarding','KW'],['Sofia Marín','Economic Development Manager','Economic Development','Osoyoos, BC','Nov 12, 2018','Active','SM'],['Tom Adeyemi','Human Resources Manager','Administration','Osoyoos, BC','Sep 14, 2020','Active','TA'],['Hannah Cole','Communications Coordinator','Administration','Oliver, BC','Apr 3, 2023','Active','HC'],['Rafael Costa','Maintenance Contractor','Public Works','Oliver, BC','Jan 10, 2022','Offboarding','RC'],['Grace Liu','Finance Officer','Finance','Osoyoos, BC','Jun 17, 2024','Active','GL'],['Noah Schmidt','Community Health Worker','Health & Wellness','Osoyoos, BC','Feb 3, 2025','Active','NS']];
+const EMPX = [['Daniel Reyes','Full-time',112000,'+1 250 555 0142'],['Chief & Council','Full-time',138000,'+1 250 555 0198'],['Amara Okafor','Full-time',58000,'+1 250 555 0121'],['Daniel Reyes','Full-time',64000,'+1 250 555 0117'],['Daniel Reyes','Full-time',118000,'+1 250 555 0132'],['Daniel Reyes','Full-time',61000,'+1 250 555 0181'],['Daniel Reyes','Full-time',104000,'+1 250 555 0164'],['Daniel Reyes','Full-time',96000,'+1 250 555 0110'],['Daniel Reyes','Full-time',67000,'+1 250 555 0133'],['Daniel Reyes','Contractor',52000,'+1 250 555 0176'],['Daniel Reyes','Full-time',71000,'+1 250 555 0187'],['Lena Fischer','Part-time',39000,'+1 250 555 0156']];
+const PEOPLE = EMP.map((e, i) => ({ id: 'E-' + (1001 + i), name: e[0], role: e[1], dept: e[2], loc: e[3], start: e[4], status: e[5], initials: e[6], manager: EMPX[i][0], type: EMPX[i][1], salary: '\x24' + EMPX[i][2].toLocaleString('en-US'), phone: EMPX[i][3], email: e[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(' ', '.') + '@oib.example' }));
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const tenure = (start) => { const [mon, , yr] = start.replace(',', '').split(' '); const m = Math.max(0, (2026 - +yr) * 12 + (9 - MONTHS.indexOf(mon))); const y = Math.floor(m / 12); return y ? y + 'y ' + (m % 12) + 'm' : (m % 12) + 'm'; };
+const DOCS = [['Employment contract.pdf','Mar 11, 2024'],['Confidentiality agreement.pdf','Mar 11, 2024'],['TD1 Tax form.pdf','Jan 8, 2026'],['Performance review H1 2026.pdf','Jul 22, 2026']];
+const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const WEEKS = [['w40', 2026, 8, 28], ['w41', 2026, 9, 5], ['w42', 2026, 9, 12]].map(([key, y, m, d]) => {
+  const days = DOW.map((_, i) => { const dt = new Date(y, m, d + i); return MONTHS[dt.getMonth()] + ' ' + dt.getDate(); });
+  return { key, days, label: days[0] + ' – ' + days[6] + ', 2026', short: days[0] + ' – ' + days[6] };
+});
+const weekOf = (k) => WEEKS.find(w => w.key === k) || WEEKS[2];
+const STD = [7.5, 7.5, 7.5, 7.5, 7.5, 0, 0];
+const sumH = (a) => a.reduce((t, x) => t + (Number(x) || 0), 0);
+const rateOf = (name) => { const i = PEOPLE.findIndex(p => p.name === name); return i < 0 ? 30 : EMPX[i][2] / 1950; };
+const money = (n) => '\x24' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const TS_LABEL = { draft: 'Draft', rejected: 'Sent back', submitted: 'Awaiting approval', approved: 'Approved', paid: 'Paid' };
+const TS_TAG = { draft: 'tag-neutral', rejected: 'tag-neutral', submitted: 'tag-outline', approved: 'tag-accent', paid: 'tag-accent' };
+const initTimesheets = () => [
+  { id: 'ts-1', person: 'Amara Okafor', week: 'w40', hours: STD, status: 'paid', submittedAt: 'Oct 5', approvedBy: 'Marcus Chen', paidOn: 'Oct 9, 2026' },
+  { id: 'ts-2', person: 'Amara Okafor', week: 'w41', hours: STD, status: 'approved', submittedAt: 'Oct 12', approvedBy: 'Marcus Chen' },
+  { id: 'ts-3', person: 'Priya Nair', week: 'w41', hours: [7.5, 7.5, 8, 7.5, 6, 0, 0], status: 'submitted', submittedAt: 'Oct 12' },
+  { id: 'ts-4', person: 'Kenji Watanabe', week: 'w41', hours: [8, 8, 8, 8, 8, 0, 0], status: 'submitted', submittedAt: 'Oct 13' },
+  { id: 'ts-5', person: 'Noah Schmidt', week: 'w41', hours: [5, 5, 5, 5, 0, 0, 0], status: 'approved', submittedAt: 'Oct 12', approvedBy: 'Lena Fischer' },
+];
+const initNotes = () => [
+  { id: 'n-1', to: 'Manager', tsId: 'ts-4', kicker: 'Timesheet approval', text: 'Kenji Watanabe submitted a timesheet', sub: 'Oct 5 – Oct 11 · 40 h', time: 'Yesterday', read: false },
+  { id: 'n-2', to: 'Manager', tsId: 'ts-3', kicker: 'Timesheet approval', text: 'Priya Nair submitted a timesheet', sub: 'Oct 5 – Oct 11 · 36.5 h', time: '2 days ago', read: false },
+  { id: 'n-3', to: 'Payroll', tsId: 'ts-5', kicker: 'Ready for payroll', text: "Noah Schmidt's timesheet was approved", sub: 'Oct 5 – Oct 11 · 20 h', time: 'Yesterday', read: false },
+  { id: 'n-4', to: 'Payroll', tsId: 'ts-2', kicker: 'Ready for payroll', text: "Amara Okafor's timesheet was approved", sub: 'Oct 5 – Oct 11 · 37.5 h', time: '2 days ago', read: true },
+  { id: 'n-5', to: 'Employee', person: 'Amara Okafor', tsId: 'ts-1', kicker: 'Payment processed', text: 'Your pay for Sep 28 – Oct 4 has been processed', sub: '37.5 h · direct deposit Oct 9', time: 'Oct 9', read: false },
+];
+const TAGS = { Active: 'tag-accent', Approved: 'tag-accent', Pending: 'tag-outline', 'On leave': 'tag-outline', Onboarding: 'tag-outline', Offboarding: 'tag-neutral', Declined: 'tag-neutral' };
+const initRoles = () => [{ id: 'r-1', title: 'Language & Culture Teacher', department: 'Education', location: 'Oliver, BC', applicants: 18, daysOpen: 21 },{ id: 'r-2', title: 'Water Treatment Operator', department: 'Public Works', location: 'Osoyoos, BC', applicants: 9, daysOpen: 12 },{ id: 'r-3', title: 'Community Health Nurse', department: 'Health & Wellness', location: 'Osoyoos, BC', applicants: 6, daysOpen: 34 },{ id: 'r-4', title: 'Finance Clerk', department: 'Finance', location: 'Osoyoos, BC', applicants: 24, daysOpen: 8 }];
+const STAGES = [['Applied','var(--color-neutral-300)'],['Screening','var(--color-neutral-500)'],['Interview','var(--color-accent-300)'],['Offer','var(--color-accent)'],['Hired','var(--color-neutral-900)']];
+const initCands = () => [['c-1','Elena Petrova','Language & Culture Teacher','Applied',0,'EP','2d ago'],['c-2','Jamal Wright','Community Health Nurse','Applied',0,'JW','3d ago'],['c-3','Mei Tanaka','Finance Clerk','Applied',0,'MT','1d ago'],['c-4','Oliver Grant','Water Treatment Operator','Screening',3,'OG','6d ago'],['c-5','Aisha Rahman','Language & Culture Teacher','Screening',4,'AR','8d ago'],['c-6','Lucas Moreau','Language & Culture Teacher','Interview',4,'LM','12d ago'],['c-7','Chloe Bennett','Water Treatment Operator','Interview',5,'CB','10d ago'],['c-8','Diego Alvarez','Community Health Nurse','Interview',3,'DA','15d ago'],['c-9','Sara Lindqvist','Language & Culture Teacher','Offer',5,'SL','19d ago'],['c-10','Kofi Mensah','Lands Referrals Coordinator','Hired',5,'KM','30d ago']].map(([id,name,role,stage,rating,initials,applied]) => ({ id, name, role, stage, rating, initials, applied }));
+const PAY = [['Sep 16 – Sep 30, 2026','Oct 2, 2026','$1,251,200','$889,400'],['Sep 1 – Sep 15, 2026','Sep 17, 2026','$1,236,800','$878,900'],['Aug 16 – Aug 31, 2026','Sep 2, 2026','$1,219,400','$866,700'],['Aug 1 – Aug 15, 2026','Aug 17, 2026','$1,198,900','$852,100']];
+const BREAK = [['Base salaries',1062000,'$1.1M','var(--color-neutral-900)'],['Honoraria & overtime',118400,'$118.4K','var(--color-accent)'],['Employer CPP & EI',71300,'$71.3K','var(--color-accent-700)'],['Benefits',32800,'$32.8K','var(--color-neutral-300)']];
+const A = { tom: ['Tom Adeyemi','HR Admin'], priya: ['Priya Raman','HR Admin'], marcus: ['Marcus Chen','Manager'], sys: ['System','Automation'] };
+const VERS = [
+  [148,'Oct 14, 2026 · 9:42 AM UTC','tom','People','Updated','Amara Okafor','Promoted to Director of Education',[['Job title','Education Coordinator','Director of Education'],['Salary','$88,000','$102,000'],['Level','L3','L4']]],
+  [147,'Oct 14, 2026 · 8:15 AM UTC','marcus','Time off','Updated','Request #TO-2291','Approved vacation request',[['Status','Pending','Approved'],['Approver','—','Marcus Chen']]],
+  [146,'Oct 13, 2026 · 5:58 PM UTC','priya','Payroll','Updated','October 2026 run','Adjusted payroll run before approval',[['Pay date','Oct 30, 2026','Oct 31, 2026'],['Gross total','$1,284,500','$1,291,200']]],
+  [145,'Oct 13, 2026 · 2:20 PM UTC','tom','Recruiting','Created','Water Treatment Operator','Opened new requisition',[['Department','—','Public Works'],['Location','—','Osoyoos, BC'],['Hiring manager','—','Marcus Chen']]],
+  [144,'Oct 12, 2026 · 11:04 AM UTC','priya','Policies','Updated','Parental leave policy','Extended paid parental leave',[['Paid weeks','12','16']]],
+  [143,'Oct 11, 2026 · 4:37 PM UTC','tom','People','Updated','Amara Okafor','Updated contact details',[['Phone','+1 (250) 555-0142','+1 (250) 555-0198'],['Location','Osoyoos, BC','Oliver, BC']]],
+  [142,'Oct 10, 2026 · 9:12 AM UTC','sys','People','Updated','Amara Okafor','Annual leave balance accrued',[['Vacation balance','12.5 days','14 days']]],
+  [141,'Oct 9, 2026 · 1:45 PM UTC','priya','People','Deleted','Emergency contact','Removed outdated emergency contact',[['Contact','Daniel Okafor · Brother','—']]],
+  [140,'Oct 8, 2026 · 10:02 AM UTC','tom','Policies','Restored','Remote work policy','Restored policy to version 131',[['Office days per week','3','2']]],
+].map(([version,when,a,module,action,target,summary,ch]) => ({ version, when, author: A[a][0], authorRole: A[a][1], module, action, target, summary, changes: ch.map(([field,before,after]) => ({ field, before, after })) }));
+const chipStyle = (on) => on ? { border: 'var(--color-accent)', bg: 'color-mix(in srgb, var(--color-accent) 12%, transparent)', fg: 'var(--color-accent-800)' } : { border: 'var(--color-divider)', bg: 'transparent', fg: 'var(--color-neutral-600)' };
+const PAGE_LABELS = { profile: 'Employee profile', dash: 'Dashboard', people: 'People', timeoff: 'Time off', recruiting: 'Recruiting', payroll: 'Payroll', versions: 'Version history' };
+
+class Component extends DCLogic {
+  state = { role: 'HR Admin', open: this.props.startOpen ?? false, requests: initRequests(), tasks: initTasks(), roles: initRoles(), cands: initCands(), page: 'dash', q: '', dept: 'All', calM: 2026 * 12 + 9, calView: 'calendar', tfFilter: 'All', vMod: 'All', vSel: 148, pIdx: 0, pTab: 'overview', timesheets: initTimesheets(), notes: initNotes(), drafts: {}, pWeek: 'w42', bellOpen: false, toast: null, messages: [welcome('HR Admin')], draft: '', thinking: null, unread: false };
+  scrollRef = React.createRef();
+  mainRef = React.createRef();
+  openProfile(name, tab, week) { const i = PEOPLE.findIndex(p => p.name === name); if (i < 0) return; this.setState(s => ({ pIdx: i, pTab: tab || 'overview', pWeek: week || s.pWeek, bellOpen: false })); this.go('profile'); }
+  showToast(text) { clearTimeout(this.toastT); this.setState({ toast: text }); this.toastT = setTimeout(() => this.setState({ toast: null }), 4500); }
+  tsFor(person, week) { return this.state.timesheets.find(t => t.person === person && t.week === week); }
+  tsById(id) { return this.state.timesheets.find(t => t.id === id); }
+  updateTs(id, patch, readTo, note) {
+    this.setState(s => ({
+      timesheets: s.timesheets.map(t => t.id === id ? { ...t, ...patch } : t),
+      notes: [...(note ? [{ id: 'n' + (++uid), time: 'Just now', read: false, tsId: id, ...note }] : []), ...s.notes.map(n => n.tsId === id && n.to === readTo ? { ...n, read: true } : n)],
+    }));
+  }
+  submitTs(person, week) {
+    const ex = this.tsFor(person, week), key = person + '|' + week;
+    const hours = (this.state.drafts[key] || (ex && ex.hours) || STD).map(x => Number(x) || 0), total = sumH(hours);
+    if (!total) return;
+    const id = ex ? ex.id : 'ts' + (++uid), mgr = (PEOPLE.find(p => p.name === person) || {}).manager || 'Their manager';
+    const W = weekOf(week);
+    this.setState(s => {
+      const drafts = { ...s.drafts }; delete drafts[key];
+      const rec = { id, person, week, hours, status: 'submitted', submittedAt: 'Today', reason: null };
+      return { drafts, timesheets: ex ? s.timesheets.map(t => t.id === id ? { ...t, ...rec } : t) : [...s.timesheets, rec],
+        notes: [{ id: 'n' + (++uid), to: 'Manager', tsId: id, kicker: 'Timesheet approval', text: person + ' submitted a timesheet', sub: W.short + ' · ' + total + ' h', time: 'Just now', read: false }, ...s.notes] };
+    });
+    this.showToast('Submitted. ' + mgr + ' (manager) has been notified to approve.');
+  }
+  approveTs(id) {
+    const t = this.tsById(id), by = PROFILES[this.state.role].name, h = sumH(t.hours);
+    this.updateTs(id, { status: 'approved', approvedBy: by }, 'Manager', { to: 'Payroll', kicker: 'Ready for payroll', text: t.person + "'s timesheet was approved", sub: weekOf(t.week).short + ' · ' + h + ' h · ' + money(h * rateOf(t.person)) });
+    this.showToast('Approved. Payroll has been notified to process payment.');
+  }
+  sendBackTs(id) {
+    const t = this.tsById(id), by = PROFILES[this.state.role].name;
+    this.updateTs(id, { status: 'rejected', reason: 'Please review your hours and resubmit.' }, 'Manager', { to: 'Employee', person: t.person, kicker: 'Timesheet sent back', text: 'Your timesheet for ' + weekOf(t.week).short + ' needs changes', sub: 'Sent back by ' + by });
+    this.showToast('Sent back. ' + t.person + ' has been notified.');
+  }
+  payTs(id, quiet) {
+    const t = this.tsById(id), h = sumH(t.hours);
+    this.updateTs(id, { status: 'paid', paidOn: 'Oct 17, 2026' }, 'Payroll', { to: 'Employee', person: t.person, kicker: 'Payment processed', text: 'Your pay for ' + weekOf(t.week).short + ' has been processed', sub: h + ' h · ' + money(h * rateOf(t.person)) + ' · direct deposit Oct 17' });
+    if (!quiet) this.showToast('Payment processed. ' + t.person + ' has been notified.');
+  }
+  go(page) { this.setState({ page }); if (this.mainRef.current) this.mainRef.current.scrollTop = 0; }
+  inputRef = React.createRef();
+
+  componentDidUpdate() { const el = this.scrollRef.current; if (el) el.scrollTop = el.scrollHeight; }
+  componentWillUnmount() { (this.timers || []).forEach(clearTimeout); }
+  later(fn, ms) { this.timers = this.timers || []; this.timers.push(setTimeout(fn, ms)); }
+
+  push(m) { this.setState(s => ({ messages: [...s.messages, { id: 'm' + (++uid), ...m }], unread: !s.open })); }
+  canApprove() { return this.state.role !== 'Employee'; }
+
+  send(text) {
+    text = (text ?? this.state.draft).trim();
+    if (!text || this.state.thinking) return;
+    this.setState({ draft: '' });
+    this.push({ from: 'user', text });
+    const steps = this.plan(text);
+    let t = 0;
+    steps.thinking.forEach(line => { this.later(() => this.setState({ thinking: line }), t); t += 650; });
+    this.later(() => { this.setState({ thinking: null }); steps.reply(); }, t + 200);
+  }
+
+  propose(text, action) {
+    const auto = this.props.requireConfirm === false;
+    this.push({ from: 'agent', text, action: { ...action, state: auto ? 'done' : 'pending' } });
+    if (auto) this.later(() => this.execute(action, true), 150);
+  }
+
+  plan(raw) {
+    const q = raw.toLowerCase(), s = this.state, role = s.role;
+    const pending = s.requests.filter(r => r.status === 'Pending');
+    const findPeople = () => pending.filter(r => q.includes(r.name.split(' ')[0].toLowerCase()) || q.includes(r.name.toLowerCase()));
+    const say = (text) => () => this.push({ from: 'agent', text });
+
+    if (/\b(approve|decline|reject|deny)\b/.test(q)) {
+      const decline = /\b(decline|reject|deny)\b/.test(q);
+      if (!this.canApprove()) return { thinking: ['Checking your permissions…'], reply: say(`As an Employee you can't ${decline ? 'decline' : 'approve'} time-off requests. I can request time off for you, or answer questions about your balance.`) };
+      if (!pending.length) return { thinking: ['Checking time-off requests…'], reply: say('There are no pending requests right now — you\'re all caught up.') };
+      let targets = /\b(all|every|everyone)\b/.test(q) ? pending : findPeople();
+      if (!targets.length && pending.length === 1) targets = pending;
+      if (!targets.length) return { thinking: ['Checking time-off requests…'], reply: say(`Which request? Pending now: ${pending.map(r => r.name).join(', ')}.`) };
+      const verb = decline ? 'Decline' : 'Approve';
+      return { thinking: ['Checking time-off requests…', 'Checking team coverage for those dates…'], reply: () => this.propose(
+        targets.length === 1 ? `${targets[0].name} has requested ${targets[0].days} ${targets[0].days === 1 ? 'day' : 'days'} of ${targets[0].type.toLowerCase()} leave. No one else on their team is out then.` : `I found ${targets.length} pending requests. No coverage conflicts.`,
+        { kind: decline ? 'decline' : 'approve', ids: targets.map(r => r.id), kicker: 'Time off', title: `${verb} ${targets.length === 1 ? targets[0].name.split(' ')[0] + "'s request" : targets.length + ' requests'}`, confirm: verb,
+          rows: targets.map(r => ({ k: `${r.name} · ${r.type}`, v: r.range })) }) };
+    }
+
+    if (/\b(post|open|create|add)\b.*\b(role|job|position|opening)\b|\bhire\b/.test(q)) {
+      if (role === 'Employee') return { thinking: ['Checking your permissions…'], reply: say("Posting roles needs Manager or HR Admin access. I can share an existing Band job posting with someone instead.") };
+      const m = raw.match(/(?:for|hire)\s+(?:an?\s+)?(.+?)(?:\s+(?:in|based in)\s+(.+))?$/i);
+      let title = (m && m[1] && !/^(a\s+)?(new\s+)?(role|job|position)$/i.test(m[1])) ? m[1].replace(/\b(role|position)\b/i, '').trim() : 'Language & Culture Teacher';
+      title = title.replace(/\b\w/g, c => c.toUpperCase());
+      const loc = (m && m[2]) ? m[2].replace(/\b\w/g, c => c.toUpperCase()) : 'Osoyoos, BC';
+      const t = title.toLowerCase();
+      const dept = /teach|educat|school|language|early childhood/.test(t) ? 'Education' : /health|nurse|wellness|counsel/.test(t) ? 'Health & Wellness' : /water|maintenance|operator|public works|technician/.test(t) ? 'Public Works' : /housing|lands|referral/.test(t) ? 'Lands & Housing' : /financ|clerk|account/.test(t) ? 'Finance' : /tourism|development|enterprise|business/.test(t) ? 'Economic Development' : 'Administration';
+      return { thinking: ['Reading similar past job posts…', 'Drafting the description…'], reply: () => this.propose(
+        `I've drafted a posting based on the last ${dept} role. Review it before I publish to the careers page.`,
+        { kind: 'postRole', kicker: 'Recruiting', title: title, confirm: 'Publish role',
+          rows: [{ k: 'Department', v: dept }, { k: 'Location', v: loc }, { k: 'Hiring manager', v: PROFILES[role].name }, { k: 'Interview plan', v: '4 stages' }] }) };
+    }
+
+    if (/\b(request|book|take|need)\b.*\b(off|vacation|leave|holiday)\b|\bday off\b/.test(q)) {
+      const fri = /friday/.test(q);
+      const range = fri ? 'Oct 23, 2026' : 'Nov 2 – Nov 3, 2026', days = fri ? 1 : 2;
+      return { thinking: ['Checking your PTO balance…', 'Checking team calendar…'], reply: () => this.propose(
+        `You have 18 vacation days left. Nobody else on your team is out ${fri ? 'that Friday' : 'then'}.`,
+        { kind: 'requestOff', range, days, kicker: 'Time off', title: 'Submit vacation request', confirm: 'Submit request',
+          rows: [{ k: 'Dates', v: range }, { k: 'Days', v: String(days) }, { k: 'Approver', v: 'Daniel Reyes' }, { k: 'Balance after', v: `${18 - days} days` }] }) };
+    }
+
+    if (/onboard|kenji|benefit|orientation|buddy|task/.test(q)) {
+      const open = s.tasks.filter(t => !t.done);
+      const wantsDone = /\b(done|complete|mark|finish|tick|check off)\b/.test(q);
+      if (!wantsDone) return { thinking: ["Opening Kenji's onboarding checklist…"], reply: say(open.length ? `Kenji is ${Math.round((6 - open.length) / 6 * 100)}% through onboarding. Still open:\n• ${open.map(t => t.label).join('\n• ')}\n\nWant me to mark any of these done?` : 'Kenji has finished every onboarding task.') };
+      if (role === 'Employee') return { thinking: ['Checking your permissions…'], reply: say("Only Kenji's manager or HR can update his checklist.") };
+      const task = open.find(t => q.includes(t.key)) || open[0];
+      if (!task) return { thinking: ['Checking the checklist…'], reply: say('Everything is already complete.') };
+      return { thinking: ["Opening Kenji's onboarding checklist…"], reply: () => this.propose(`I'll mark "${task.label}" complete and let Kenji's buddy know.`,
+        { kind: 'task', label: task.label, kicker: 'Onboarding', title: task.label, confirm: 'Mark complete', rows: [{ k: 'Employee', v: 'Kenji Watanabe' }, { k: 'Notify', v: 'Amara Okafor' }] }) };
+    }
+
+    if (/summar|pending|request|time.off|queue/.test(q)) return { thinking: ['Checking time-off requests…'], reply: say(pending.length ? `${pending.length} pending ${pending.length === 1 ? 'request' : 'requests'}:\n${pending.map(r => `• ${r.name} — ${r.type}, ${r.range} (${r.days}d). ${r.note}`).join('\n')}\n\nNo coverage conflicts. Say "approve all" or name someone.` : "No pending requests — you're all caught up.") };
+    if (/pto|balance|days (do|have)/.test(q)) return { thinking: ['Checking your balance…'], reply: say(`${PROFILES[role].name.split(' ')[0]}, you have 18 vacation days, 8 sick days and 2 personal days left this year.`) };
+    if (/celebrat|birthday|anniversar/.test(q)) return { thinking: ['Checking the calendar…'], reply: say(`Coming up:\n${EVENTS.map(e => `• ${e[0]} — ${e[2]}, ${e[3]}`).join('\n')}`) };
+    if (/headcount|employees|how many people/.test(q)) return { thinking: ['Pulling headcount…'], reply: say('The Band has 141 employees, up 7 since last month. Economic Development is the largest department at 30.') };
+    if (/turnover|attrition/.test(q)) return { thinking: ['Pulling retention data…'], reply: say('Annual turnover is 6.2%, down 1.4 points from last year.') };
+    return { thinking: ['Thinking…'], reply: say("I'm not sure how to help with that yet. I can approve or decline time off, post roles, update onboarding, request leave, or answer questions about headcount and events.") };
+  }
+
+  execute(a, viaAuto) {
+    const tag = { viaAgent: true };
+    if (a.kind === 'approve' || a.kind === 'decline') {
+      const status = a.kind === 'approve' ? 'Approved' : 'Declined';
+      this.setState(s => ({ requests: s.requests.map(r => a.ids.includes(r.id) ? { ...r, status, ...tag } : r) }));
+      this.push({ from: 'agent', text: `Done — ${a.ids.length === 1 ? 'the request is' : a.ids.length + ' requests are'} ${status.toLowerCase()} and ${a.ids.length === 1 ? 'the employee has' : 'everyone has'} been notified.` });
+    } else if (a.kind === 'postRole') {
+      this.setState(s => ({ roles: [...s.roles, { id: 'r' + (++uid), title: a.title, department: a.rows[0].v, location: a.rows[1].v, applicants: 0, daysOpen: 0, viaAgent: true }] }));
+      this.push({ from: 'agent', text: `Published. "${a.title}" is live on the careers page — open roles now ${this.state.roles.length + 1}.` });
+    } else if (a.kind === 'task') {
+      this.setState(s => ({ tasks: s.tasks.map(t => t.label === a.label ? { ...t, done: true, ...tag } : t) }));
+      this.push({ from: 'agent', text: `Marked "${a.label}" complete.` });
+    } else if (a.kind === 'requestOff') {
+      const p = PROFILES[this.state.role];
+      this.setState(s => ({ requests: [...s.requests, { id: 'n' + (++uid), name: p.name, initials: p.initials, type: 'Vacation', range: a.range, days: a.days, status: 'Pending', note: '', ...tag }] }));
+      this.push({ from: 'agent', text: 'Submitted. Daniel Reyes will be notified to approve it.' });
+    }
+  }
+
+  setAction(id, st) {
+    let act;
+    this.setState(s => ({ messages: s.messages.map(m => { if (m.id === id) { act = m.action; return { ...m, action: { ...m.action, state: st } }; } return m; }) }),
+      () => { if (st === 'done' && act) this.later(() => this.execute(act), 250); else if (st === 'cancelled') this.push({ from: 'agent', text: 'Okay, cancelled — nothing was changed.' }); });
+  }
+
+
+  nexinVals(){
+    const N=window.NEXIN;if(!N)return {sw:{apps:[],toggle:()=>{},close:()=>{}},personaOpts:[],personaId:'',onPersona:()=>{}};
+    const p=N.current(),mine=N.appsFor(p);
+    return {
+      sw:{open:!!this.state.swOpen,toggle:()=>this.setState(st=>({swOpen:!st.swOpen})),close:()=>this.setState({swOpen:false}),
+        note:mine.length+' of '+N.apps.length+' apps available to '+p.name,
+        apps:mine.map(a=>({...a,isCur:a.id==='hris',roleLabel:'Your role · '+p.roles[a.id],bg:a.id==='hris'?'color-mix(in srgb, var(--color-accent) 10%, transparent)':'transparent',go:e=>{if(a.id==='hris'){e.preventDefault();this.setState({swOpen:false});}}}))},
+      personaId:p.id,
+      personaOpts:N.personas.map(x=>({id:x.id,label:'Preview as '+x.name+' · '+(x.roles['hris']||'no access')})),
+      onPersona:e=>{const x=N.personas.find(y=>y.id===e.target.value);N.setPersona(x.id);if(x.roles['hris'])this.setRole(x.roles['hris']);else N.open(N.appsFor(x)[0].id);}
+    };
+  }
+  componentDidMount(){
+    const sync=()=>{const N=window.NEXIN;if(!N)return void(this._nx=setTimeout(sync,50));const p=N.current();if(!p.roles['hris'])return N.open(N.appsFor(p)[0].id);if(p.roles['hris']!==this.state.role)this.setRole(p.roles['hris']);else this.forceUpdate();};
+    sync();
+  }
+  setRole(role) {
+    (this.timers || []).forEach(clearTimeout);
+    this.setState(s => ({ role, messages: [welcome(role)], thinking: null, bellOpen: false, page: s.page === 'versions' && role !== 'HR Admin' ? 'dash' : s.page }));
+  }
+
+  renderVals() {
+    const s = this.state, w = (this.props.chatWidth ?? 400);
+    const pending = s.requests.filter(r => r.status === 'Pending');
+    const done = s.tasks.filter(t => t.done).length;
+    const canAct = this.canApprove();
+    const auto = this.props.requireConfirm === false;
+    const dot = (d) => React.createElement('span', { key: d, style: { width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', animation: `dcPulse 1s ${d * 0.15}s infinite` } });
+    const setReq = (id, status) => this.setState(st => ({ requests: st.requests.map(x => x.id === id ? { ...x, status } : x) }));
+    const ql = s.q.trim().toLowerCase();
+    const emps = EMP.filter(e => (!ql || [e[0], e[1], e[3]].some(x => x.toLowerCase().includes(ql))) && (s.dept === 'All' || e[2] === s.dept));
+    const vers = VERS.filter(v => s.vMod === 'All' || v.module === s.vMod);
+    const sel = vers.find(v => v.version === s.vSel) || vers[0];
+    const tf = s.requests.filter(r => s.tfFilter === 'All' || r.status === s.tfFilter);
+    const nav = {}; Object.keys(PAGE_LABELS).forEach(k => { const on = s.page === k || (k === 'people' && s.page === 'profile'); nav[k] = { go: (e) => { e && e.preventDefault(); this.go(k); }, bg: on ? 'color-mix(in srgb, var(--color-neutral-100) 9%, transparent)' : 'transparent', fg: on ? 'var(--color-neutral-100)' : 'var(--color-neutral-300)', ic: on ? 'var(--color-accent-300)' : 'currentColor' }; });
+    const P = PEOPLE[s.pIdx], [pbg, pfg] = av(P.initials);
+    const reps = PEOPLE.filter(x => x.manager === P.name);
+    const preqs = s.requests.filter(r => r.name === P.name);
+    const pvers = VERS.filter(v => v.target === P.name);
+    const audience = s.role === 'HR Admin' ? 'Payroll' : s.role === 'Manager' ? 'Manager' : 'Employee';
+    const myNotes = s.notes.filter(n => n.to === audience && (audience !== 'Employee' || n.person === PROFILES.Employee.name));
+    const unreadN = myNotes.filter(n => !n.read).length;
+    const T = this.tsFor(P.name, s.pWeek), tst = T ? T.status : 'draft', W = weekOf(s.pWeek);
+    const editable = tst === 'draft' || tst === 'rejected';
+    const dkey = P.name + '|' + s.pWeek, hrs = s.drafts[dkey] || (T && T.hours) || STD, tot = sumH(hrs);
+    const stepAt = { draft: 0, rejected: 0, submitted: 1, approved: 2, paid: 4 }[tst];
+    const stepDefs = [
+      ['Submitted by employee', T && tst !== 'rejected' && tst !== 'draft' ? 'Sent ' + T.submittedAt + ' · ' + P.manager + ' notified' : 'Manager is notified on submit'],
+      ['Manager approval', T && T.approvedBy ? 'Approved by ' + T.approvedBy + ' · Payroll notified' : 'Payroll is notified on approval'],
+      ['Payroll processing', tst === 'paid' ? 'Processed by Payroll' : 'Payment is processed for the period'],
+      ['Employee notified of payment', tst === 'paid' ? 'Deposit ' + T.paidOn : P.name.split(' ')[0] + ' is notified once paid'],
+    ];
+    const waitText = tst === 'draft' ? 'Enter hours for the week, then submit to ' + P.manager + ' for approval.'
+      : tst === 'rejected' ? 'Sent back: ' + T.reason
+      : tst === 'submitted' ? (s.role === 'Manager' ? '' : 'Waiting for manager approval. Preview as Manager to approve.')
+      : tst === 'approved' ? (s.role === 'HR Admin' ? '' : 'Approved. Waiting for Payroll — preview as HR Admin to process.')
+      : 'Paid on ' + T.paidOn + '. ' + P.name.split(' ')[0] + ' was notified.';
+    const pTs = s.timesheets.filter(t => t.person === P.name).sort((a, b) => b.week.localeCompare(a.week));
+    const queue = s.timesheets.filter(t => t.status === 'approved');
+    const isPay = s.role === 'HR Admin';
+    return {
+      openMe: (e) => { e.preventDefault(); this.openProfile(PROFILES[s.role].name); },
+      toggleBell: () => this.setState(st => ({ bellOpen: !st.bellOpen })), bellOpen: s.bellOpen,
+      bellAudience: audience === 'Payroll' ? 'Payroll team · ' + PROFILES[s.role].name : audience === 'Manager' ? 'Manager · ' + PROFILES[s.role].name : PROFILES[s.role].name,
+      hasUnreadN: unreadN > 0, unreadN, noNotes: !myNotes.length,
+      markAllRead: (e) => { e.preventDefault(); this.setState(st => ({ notes: st.notes.map(n => myNotes.includes(n) ? { ...n, read: true } : n) })); },
+      noteRows: myNotes.map((n, i) => { const t = this.tsById(n.tsId) || {}; return { ...n, border: i ? '1px solid var(--color-divider)' : 'none', bg: n.read ? 'transparent' : 'color-mix(in srgb, var(--color-accent) 6%, transparent)', dot: n.read ? 'transparent' : 'var(--color-accent)',
+        canApprove: n.to === 'Manager' && s.role === 'Manager' && t.status === 'submitted', canPay: n.to === 'Payroll' && isPay && t.status === 'approved',
+        resolved: n.to === 'Manager' && t.status && t.status !== 'submitted' ? TS_LABEL[t.status] : n.to === 'Payroll' && t.status === 'paid' ? 'Paid' : '',
+        openLabel: n.to === 'Payroll' ? 'Open payroll' : 'View timesheet',
+        approve: () => this.approveTs(n.tsId), pay: () => this.payTs(n.tsId),
+        open: () => { this.setState(st => ({ notes: st.notes.map(x => x.id === n.id ? { ...x, read: true } : x), bellOpen: false })); if (n.to === 'Payroll') this.go('payroll'); else this.openProfile(t.person, 'timesheets', t.week); } }; }),
+      toast: s.toast,
+      tabTimesheets: s.pTab === 'timesheets',
+      weekChips: WEEKS.map(w => ({ label: w.short, go: () => this.setState({ pWeek: w.key }), ...chipStyle(s.pWeek === w.key) })),
+      ts: { weekLabel: W.label, statusLabel: TS_LABEL[tst], tagClass: TS_TAG[tst], editable, readonly: !editable, total: tot, gross: money(tot * rateOf(P.name)), cannotSubmit: !tot,
+        managerCanAct: tst === 'submitted' && s.role === 'Manager', payrollCanAct: tst === 'approved' && isPay, waitText,
+        onSubmit: () => this.submitTs(P.name, s.pWeek), onApprove: () => this.approveTs(T.id), onSendBack: () => this.sendBackTs(T.id), onPay: () => this.payTs(T.id),
+        days: DOW.map((dow, i) => ({ dow, date: W.days[i], val: hrs[i], onChange: (e) => { const v = e.target.value; this.setState(st => { const arr = [...(st.drafts[dkey] || (T && T.hours) || STD)]; arr[i] = v; return { drafts: { ...st.drafts, [dkey]: arr } }; }); } })) },
+      tsSteps: stepDefs.map(([label, sub], i) => { const done = i < stepAt, cur = i === stepAt; return { label, sub, num: i + 1, done, notDone: !done, line: i < 3, ring: done || cur ? 'var(--color-accent)' : 'var(--color-divider)', fg: done || cur ? 'var(--color-accent-700)' : 'var(--color-neutral-500)', lineColor: done ? 'var(--color-accent)' : 'var(--color-divider)', labelColor: done || cur ? 'var(--color-text)' : 'var(--color-neutral-600)' }; }),
+      tsHist: pTs.map((t, i) => ({ week: weekOf(t.week).label, hours: sumH(t.hours), gross: money(sumH(t.hours) * rateOf(t.person)), statusLabel: TS_LABEL[t.status], tagClass: TS_TAG[t.status], border: i ? '1px solid var(--color-divider)' : 'none', open: () => this.setState({ pWeek: t.week }) })),
+      noTsHist: !pTs.length,
+      payQueue: queue.map((t, i) => { const pi = PEOPLE.find(p => p.name === t.person) || { initials: '?' }; const [bg, fg] = av(pi.initials); const h = sumH(t.hours); return { person: t.person, initials: pi.initials, bg, fg, week: weekOf(t.week).short, hours: h, gross: money(h * rateOf(t.person)), approvedBy: t.approvedBy, canPay: isPay, border: i ? '1px solid var(--color-divider)' : 'none', pay: () => this.payTs(t.id), open: (e) => { e.preventDefault(); this.openProfile(t.person, 'timesheets', t.week); } }; }),
+      noQueue: !queue.length, canPayAll: isPay && queue.length > 1,
+      queueLabel: queue.length + ' ready for payment · ' + s.timesheets.filter(t => t.status === 'submitted').length + ' awaiting manager approval' + (isPay ? '' : ' · preview as HR Admin to process'),
+      payAll: () => { const n = queue.length; queue.forEach(t => this.payTs(t.id, true)); this.showToast(n + ' payments processed. Each employee has been notified.'); },
+      isProfile: s.page === 'profile',
+      p: { ...P, bg: pbg, fg: pfg, tagClass: TAGS[P.status], tenure: tenure(P.start) },
+      profileTabs: [['overview','Overview'],['timesheets','Timesheets'],['timeoff','Time off'],['docs','Documents']].map(([k, label]) => ({ label, go: () => this.setState({ pTab: k }), border: s.pTab === k ? 'var(--color-accent)' : 'transparent', fg: s.pTab === k ? 'var(--color-text)' : 'var(--color-neutral-600)' })),
+      tabOverview: s.pTab === 'overview', tabTimeoff: s.pTab === 'timeoff', tabDocs: s.pTab === 'docs',
+      reports: reps.map(x => { const [bg, fg] = av(x.initials); return { ...x, bg, fg, open: (ev) => { ev.preventDefault(); this.openProfile(x.name); } }; }),
+      noReports: !reps.length, reportsLabel: reps.length + (reps.length === 1 ? ' person' : ' people'),
+      balances: [['Vacation',20,8],['Sick',10,2],['Personal',3,1]].map(([type, allowance, used]) => ({ type, allowance, left: allowance - used, pct: ((allowance - used) / allowance * 100) + '%' })),
+      pReqs: preqs.map((r, i) => ({ ...r, tagClass: TAGS[r.status], border: i ? '1px solid var(--color-divider)' : 'none' })), noPReq: !preqs.length,
+      docs: DOCS.map(([name, updated], i) => ({ name, updated, border: i ? '1px solid var(--color-divider)' : 'none' })),
+      showPVer: s.role === 'HR Admin', noPVer: !pvers.length,
+      pVers: pvers.map(v => ({ ...v, diff: v.changes.map(c => c.field + ': ' + c.before + ' → ' + c.after).join(' · ') })),
+      nav, mainRef: this.mainRef, pageLabel: PAGE_LABELS[s.page],
+      isDash: s.page === 'dash', isPeople: s.page === 'people', isTimeoff: s.page === 'timeoff', isRecruiting: s.page === 'recruiting', isPayroll: s.page === 'payroll', isVersions: s.page === 'versions' && s.role === 'HR Admin',
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      deptChips: ['All', 'Administration', 'Economic Development', 'Education', 'Finance', 'Health & Wellness', 'Lands & Housing', 'Public Works'].map(d => ({ label: d, go: () => this.setState({ dept: d }), ...chipStyle(s.dept === d) })),
+      empRows: emps.map((e, i) => { const [bg, fg] = av(e[6]); return { open: () => this.openProfile(e[0]), name: e[0], role: e[1], dept: e[2], loc: e[3], start: e[4], status: e[5], initials: e[6], tagClass: TAGS[e[5]], bg, fg, border: i ? '1px solid var(--color-divider)' : 'none' }; }),
+      noEmp: emps.length === 0, empCount: emps.length,
+      approvedMonth: 18 + s.requests.filter(r => !r.history && r.status === 'Approved').length,
+      ...(() => {
+        const cm = s.calM, cy = Math.floor(cm / 12), mo = cm % 12, mStart = new Date(cy, mo, 1), mEnd = new Date(cy, mo + 1, 0);
+        const lead = (mStart.getDay() + 6) % 7, total = Math.ceil((lead + mEnd.getDate()) / 7) * 7;
+        const leave = s.requests.filter(r => r.status !== 'Declined').map(r => ({ r, rg: parseRange(r.range) })).filter(x => x.rg);
+        const ABBR = { Vacation: 'VAC', Sick: 'SICK', Personal: 'PERS', Parental: 'PAR', Cultural: 'CULT', Bereavement: 'BRV' };
+        const chip = (x, key, col) => { const ap = x.r.status === 'Approved', [avBg, avFg] = av(x.r.initials); return { first: x.r.name.split(' ')[0], abbr: ABBR[x.r.type] || x.r.type.slice(0, 4).toUpperCase(), name: x.r.name, initials: x.r.initials, type: x.r.type, range: x.r.range, daysLabel: x.r.days + (x.r.days === 1 ? ' day' : ' days'), note: x.r.note || '', status: x.r.status, tagClass: TAGS[x.r.status] || 'tag-neutral', avBg, avFg, hover: !!s.calHover && s.calHover.key === key, ...(s.calHover && s.calHover.key === key ? s.calHover.pos : {}), enter: (e) => { const r = e.currentTarget.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight, left = Math.max(8, Math.min(r.left, W - 248)), up = r.bottom + 190 > H; this.setState({ calHover: { key, pos: { tipL: left + 'px', tipT: up ? 'auto' : (r.bottom + 6) + 'px', tipB: up ? (H - r.top + 6) + 'px' : 'auto' } } }); }, leave: () => this.setState(st => st.calHover && st.calHover.key === key ? { calHover: null } : null), title: x.r.name + ' — ' + x.r.type + ' (' + x.r.status.toLowerCase() + ')', line: ap ? 'solid' : 'dashed', stroke: ap ? 'var(--color-accent)' : 'var(--color-neutral-500)', bg: ap ? 'color-mix(in srgb, var(--color-accent) 14%, transparent)' : 'transparent', open: () => this.openProfile(x.r.name) }; };
+        const cells = []; for (let i = 0; i < total; i++) { const d = new Date(cy, mo, 1 - lead + i), inM = d.getMonth() === mo, wk = !(d.getDay() % 6), ppl = wk || !inM ? [] : leave.filter(x => d >= x.rg[0] && d <= x.rg[1]), today = d.getTime() === CAL_TODAY.getTime();
+          cells.push({ day: d.getDate(), numColor: today ? 'var(--color-accent-800)' : inM ? 'var(--color-text)' : 'var(--color-neutral-400)', ring: today ? 'var(--color-accent)' : 'transparent', bg: wk || !inM ? 'color-mix(in srgb, var(--color-neutral-200) 30%, transparent)' : 'transparent', br: i % 7 < 6 ? '1px solid var(--color-divider)' : 'none', bt: i >= 7 ? '1px solid var(--color-divider)' : 'none', people: ppl.slice(0, 3).map(x => chip(x, x.r.id + '@' + i, i % 7)), more: ppl.length > 3 ? '+' + (ppl.length - 3) + ' more' : '', showList: () => this.setState({ calView: 'list' }) }); }
+        const fmt = (a, b) => { const A = CAL_MONTHS[a.getMonth()].slice(0, 3) + ' ' + a.getDate(); if (a.getTime() === b.getTime()) return A; return A + ' – ' + (a.getMonth() === b.getMonth() ? '' : CAL_MONTHS[b.getMonth()].slice(0, 3) + ' ') + b.getDate(); };
+        const list = leave.filter(x => x.rg[0] <= mEnd && x.rg[1] >= mStart).sort((a, b) => a.rg[0] - b.rg[0]).map((x, i) => { const a = x.rg[0] < mStart ? mStart : x.rg[0], b = x.rg[1] > mEnd ? mEnd : x.rg[1], [bg, fg] = av(x.r.initials); return { ...x.r, bg, fg, border: i ? '1px solid var(--color-divider)' : 'none', dates: fmt(a, b) + (x.rg[0] < mStart ? ' (cont.)' : x.rg[1] > mEnd ? ' (cont.)' : ''), work: workdays(a, b), tagClass: TAGS[x.r.status] || 'tag-neutral', open: (e) => { e.preventDefault(); this.openProfile(x.r.name); } }; });
+        return {
+          showTeamCal: s.role !== 'Employee', calScope: s.role === 'Manager' ? 'your team' : 'all departments',
+          calLabel: CAL_MONTHS[mo] + ' ' + cy, calPrev: () => this.setState(st => ({ calM: st.calM - 1 })), calNext: () => this.setState(st => ({ calM: st.calM + 1 })), calToday: () => this.setState({ calM: 2026 * 12 + 9 }),
+          calViews: [['calendar', 'Calendar'], ['list', 'List']].map(([k, label]) => ({ label, go: () => this.setState({ calView: k }), ...chipStyle(s.calView === k) })),
+          isCalView: s.calView === 'calendar', isListView: s.calView === 'list',
+          calDow: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], calCells: cells, calList: list, calListEmpty: !list.length
+        };
+      })(),
+      tfChips: ['All', 'Pending', 'Approved', 'Declined'].map(d => ({ label: d, go: () => this.setState({ tfFilter: d }), ...chipStyle(s.tfFilter === d) })),
+      tfRows: tf.map((r, i) => { const [bg, fg] = av(r.initials); return { ...r, bg, fg, border: i ? '1px solid var(--color-divider)' : 'none', showActions: r.status === 'Pending' && canAct, showStatus: !(r.status === 'Pending' && canAct), tagClass: TAGS[r.status], onApprove: () => setReq(r.id, 'Approved'), onDecline: () => setReq(r.id, 'Declined') }; }),
+      onNewRequest: () => { this.setState({ open: true, unread: false, draft: 'Request time off for ' }); this.later(() => this.inputRef.current && this.inputRef.current.focus(), 350); },
+      roleRows: s.roles.map(r => ({ ...r, viaAgent: !!r.viaAgent })),
+      stageCols: STAGES.map(([stage, color], si) => { const items = s.cands.filter(c => c.stage === stage); return { stage, color, count: items.length, empty: !items.length, items: items.map(c => { const [bg, fg] = av(c.initials); return { ...c, bg, fg, meta: c.rating ? '★'.repeat(c.rating) + '☆'.repeat(5 - c.rating) : c.applied, metaColor: c.rating ? 'var(--color-accent)' : 'var(--color-neutral-600)', canAdvance: si < 4, advance: () => this.setState(st => ({ cands: st.cands.map(x => x.id === c.id ? { ...x, stage: STAGES[si + 1][0] } : x) })) }; }) }; }),
+      payRuns: PAY.map(([period, payDate, gross, net], i) => ({ period, payDate, gross, net, border: i ? '1px solid var(--color-divider)' : 'none' })),
+      breakdown: BREAK.map(([label, n, amount, color]) => ({ label, amount, color, pct: (n / 1284500 * 100) + '%' })),
+      modChips: ['All', 'People', 'Time off', 'Recruiting', 'Payroll', 'Policies'].map(d => ({ label: d, go: () => this.setState({ vMod: d }), ...chipStyle(s.vMod === d) })),
+      verRows: vers.map((v, i) => { const on = sel && sel.version === v.version; return { ...v, border: i ? '1px solid var(--color-divider)' : 'none', mark: on ? 'var(--color-accent)' : 'transparent', bg: on ? 'color-mix(in srgb, var(--color-accent) 7%, transparent)' : 'transparent', select: () => this.setState({ vSel: v.version }) }; }),
+      noVer: !vers.length, hasSel: !!sel, sel: sel ? { ...sel, prev: sel.version - 1 } : {},
+      ...this.nexinVals(), role: s.role, isAdmin: s.role === 'HR Admin', profile: PROFILES[s.role], firstName: PROFILES[s.role].name.split(' ')[0],
+      onRole: (e) => this.setRole(e.target.value),
+      openRoleCount: s.roles.length, applicants: s.roles.reduce((t, r) => t + r.applicants, 0), pendingCount: pending.length,
+      trend: TREND.map(([month, value], i) => { const last = i === TREND.length - 1; return { month, value, h: ((value - 100) / 41 * 80 + 20) + '%', stroke: last ? 'var(--color-accent)' : 'var(--color-neutral-300)', fill: last ? 'color-mix(in srgb, var(--color-accent) 14%, transparent)' : 'color-mix(in srgb, var(--color-neutral-300) 30%, transparent)' }; }),
+      depts: DEPTS.map(([name, headcount, color]) => ({ name, headcount, color, pct: (headcount / 141 * 100) + '%' })),
+      events: EVENTS.map(([name, initials, kind, date]) => { const [bg, fg] = av(initials); return { open: (ev) => { ev.preventDefault(); this.openProfile(name); }, name, initials, kind, date, bg, fg }; }),
+      requestRows: s.requests.filter(r => !r.history).map((r, i) => { const [bg, fg] = av(r.initials); return { ...r, bg, fg, border: i ? '1px solid var(--color-divider)' : 'none', daysLabel: r.days + (r.days === 1 ? ' day' : ' days'), isPending: r.status === 'Pending', isResolved: r.status !== 'Pending', canAct, cannotAct: !canAct, viaAgent: !!r.viaAgent, statusColor: r.status === 'Approved' ? 'var(--color-accent-700)' : 'var(--color-neutral-600)',
+        onApprove: () => this.setState(st => ({ requests: st.requests.map(x => x.id === r.id ? { ...x, status: 'Approved' } : x) })),
+        onDecline: () => this.setState(st => ({ requests: st.requests.map(x => x.id === r.id ? { ...x, status: 'Declined' } : x) })) }; }),
+      doneCount: done, pctLabel: Math.round(done / 6 * 100) + '%',
+      taskRows: s.tasks.map(t => ({ label: t.label, done: t.done, notDone: !t.done, viaAgent: !!t.viaAgent, color: t.done ? 'var(--color-neutral-600)' : 'var(--color-text)', deco: t.done ? 'line-through' : 'none' })),
+      onPostRoleBtn: () => { this.setState({ open: true, unread: false, draft: 'Post a role for ' }); this.later(() => this.inputRef.current && this.inputRef.current.focus(), 350); },
+      panelW: s.open ? w + 'px' : '0px', innerW: w + 'px', panelBorder: s.open ? '1px solid var(--color-divider)' : '0px solid transparent',
+      showLauncher: !s.open, hasUnread: s.unread,
+      onOpen: () => { this.setState({ open: true, unread: false }); this.later(() => this.inputRef.current && this.inputRef.current.focus(), 350); },
+      onClose: () => this.setState({ open: false }),
+      onReset: () => this.setRole(s.role),
+      scrollRef: this.scrollRef, inputRef: this.inputRef,
+      msgRows: s.messages.map(m => { const a = m.action; return {
+        isUser: m.from === 'user', isAgent: m.from === 'agent' && !!m.text, text: m.text, hasAction: !!a,
+        kicker: a && a.kicker, title: a && a.title, rows: a ? a.rows : [], confirmLabel: a && a.confirm,
+        isPending: a && a.state === 'pending', cardBorder: a && a.state === 'pending' ? 'var(--color-accent)' : 'var(--color-divider)',
+        stateLabel: !a ? '' : a.state === 'pending' ? 'Needs your OK' : a.state === 'done' ? 'Done' : 'Cancelled',
+        onConfirm: () => this.setAction(m.id, 'done'), onCancel: () => this.setAction(m.id, 'cancelled') }; }),
+      thinking: s.thinking, dots: [0, 1, 2].map(dot),
+      showSuggestions: s.messages.length === 1 && !s.thinking,
+      suggestions: SUGGEST[s.role].map(label => ({ label, onClick: () => this.send(label) })),
+      draft: s.draft, onDraft: (e) => this.setState({ draft: e.target.value }),
+      onKey: (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); this.send(); } },
+      onSend: () => this.send(), sendDisabled: !s.draft.trim() || !!s.thinking,
+      footNote: auto ? 'Auto-run is on — actions apply without confirmation.' : 'Actions wait for your confirmation before anything changes.',
+    };
+  }
+}
+</script>
+</body>
+</html>

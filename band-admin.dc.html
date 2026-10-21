@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classical-e93873a3-be33-4b8e-a9a4-ca7980c7f1ff/styles.css">
+<script src="_ds/classical-e93873a3-be33-4b8e-a9a4-ca7980c7f1ff/_ds_bundle.js"></script>
+<script src="./nexin.js"></script>
+<style>
+html,body{margin:0;height:100%;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);}
+a{color:var(--color-accent-700);}
+a:hover{color:var(--color-accent-800);}
+</style>
+</helmet>
+<div style="display:flex;height:100vh;overflow:hidden;background:var(--color-bg);">
+
+  <aside data-screen-label="Sidebar" style="width:240px;flex-shrink:0;display:flex;flex-direction:column;background:var(--color-neutral-900);color:var(--color-neutral-200);">
+    <div style="position:relative;padding:20px 12px 16px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:0 8px 14px;">
+        <span style="width:34px;height:34px;border:1px solid var(--color-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:19px;color:var(--color-accent-300);">N</span>
+        <div style="display:flex;flex-direction:column;line-height:1.15;"><span style="font-family:var(--font-heading);font-weight:600;font-size:22px;color:var(--color-neutral-100);letter-spacing:.01em;">Nexin</span><span style="font-size:11px;color:var(--color-neutral-400);">Osoyoos Indian Band</span></div>
+      </div>
+      <button onClick="{{ sw.toggle }}" aria-label="Switch app" aria-expanded="{{ sw.open }}" style="all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid color-mix(in srgb, var(--color-neutral-100) 18%, transparent);border-radius:var(--radius-md);color:var(--color-neutral-100);" style-hover="border-color:var(--color-accent);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+        <span style="flex:1;font-size:14px;">Band Admin</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+      </button>
+      <sc-if value="{{ sw.open }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ sw.close }}" style="position:fixed;inset:0;z-index:49;"></div>
+        <div class="card elev-lg" style="position:absolute;left:12px;top:calc(100% - 8px);z-index:50;width:300px;padding:0;background:var(--color-bg);color:var(--color-text);">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--color-divider);"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);">Nexin apps</div><div style="font-size:12px;color:var(--color-neutral-600);margin-top:2px;">{{ sw.note }}</div></div>
+          <div style="padding:6px;display:flex;flex-direction:column;gap:2px;">
+            <sc-for list="{{ sw.apps }}" as="a" hint-placeholder-count="2">
+              <a href="{{ a.href }}" onClick="{{ a.go }}" style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:var(--radius-md);text-decoration:none;color:var(--color-text);background:{{ a.bg }};" style-hover="background:var(--color-neutral-100);">
+                <span style="width:34px;height:34px;flex-shrink:0;border:1px solid var(--color-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:13px;color:var(--color-accent-800);">{{ a.mark }}</span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;"><span style="font-size:14px;">{{ a.name }}</span><span style="font-size:12px;color:var(--color-neutral-600);">{{ a.desc }}</span><span style="font-size:11px;color:var(--color-accent-700);margin-top:2px;">{{ a.roleLabel }}</span></span>
+                <sc-if value="{{ a.isCur }}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    <nav style="flex:1;padding:0 12px;display:flex;flex-direction:column;gap:2px;">
+      <a href="#" onClick="{{ nav.dash.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.dash.bg }};color:{{ nav.dash.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>Overview</a>
+      <a href="#" onClick="{{ nav.members.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.members.bg }};color:{{ nav.members.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Member registry</a>
+      <a href="#" onClick="{{ nav.docs.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.docs.bg }};color:{{ nav.docs.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h8"></path><path d="M8 11h6"></path></svg>Governance</a>
+      <a href="#" onClick="{{ nav.elections.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.elections.bg }};color:{{ nav.elections.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"></path><path d="M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7Z"></path><path d="M22 19H2"></path></svg>Elections</a>
+      <a href="#" onClick="{{ nav.log.go }}" style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:var(--radius-md);font-size:14px;text-decoration:none;background:{{ nav.log.bg }};color:{{ nav.log.fg }};" style-hover="color:var(--color-neutral-100);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg>Records log</a>
+    </nav>
+    <div style="border-top:1px solid color-mix(in srgb, var(--color-neutral-100) 12%, transparent);padding:12px;display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 12px;">
+        <span style="width:32px;height:32px;border-radius:50%;border:1px solid var(--color-accent);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--color-neutral-100);">{{ user.initials }}</span>
+        <div style="min-width:0;"><div style="font-size:14px;color:var(--color-neutral-100);">{{ user.name }}</div><div style="font-size:12px;color:var(--color-neutral-400);">{{ role }}</div></div>
+      </div>
+      <select value="{{ personaId }}" onChange="{{ onPersona }}" aria-label="Preview as user" style="width:100%;padding:6px 8px;font-family:var(--font-body);font-size:12px;border-radius:var(--radius-md);border:1px solid color-mix(in srgb, var(--color-neutral-100) 18%, transparent);background:var(--color-neutral-800);color:var(--color-neutral-100);">
+        <sc-for list="{{ personaOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.id }}">{{ o.label }}</option></sc-for>
+      </select>
+    </div>
+  </aside>
+
+  <main ref="{{ mainRef }}" data-screen-label="{{ pageLabel }}" style="flex:1;min-width:0;overflow-y:auto;">
+    <div style="position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 36px;background:var(--color-bg);border-bottom:1px solid var(--color-divider);">
+      <span style="font-size:12px;color:var(--color-neutral-600);">{{ permNote }}</span>
+      <span style="font-size:12px;color:var(--color-neutral-600);font-style:italic;">Signed in as {{ user.name }} · {{ role }}</span>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;padding:40px 36px 96px;">
+
+<sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Band administration</h1>
+        <p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Tuesday, October 20, 2026 · Membership, governance and elections of record.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;">
+        <div class="card" style="padding:20px;"><div style="font-size:13px;color:var(--color-neutral-600);">Registered members</div><div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">{{ totals.members }}</div><div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">{{ totals.onRes }} on reserve · {{ totals.offRes }} off</div></div>
+        <div class="card" style="padding:20px;"><div style="font-size:13px;color:var(--color-neutral-600);">Eligible electors</div><div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">{{ totals.electors }}</div><div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">Members 18 and over</div></div>
+        <div class="card" style="padding:20px;"><div style="font-size:13px;color:var(--color-neutral-600);">Election day</div><div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">Nov 24</div><div style="margin-top:6px;font-size:12px;color:var(--color-accent-700);">{{ stageNow }}</div></div>
+        <div class="card" style="padding:20px;"><div style="font-size:13px;color:var(--color-neutral-600);">Resolutions in 2026</div><div style="margin-top:10px;font-family:var(--font-heading);font-size:40px;line-height:1;font-feature-settings:'tnum';">{{ totals.bcrs }}</div><div style="margin-top:6px;font-size:12px;color:var(--color-neutral-600);">{{ totals.drafts }} documents in draft</div></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;align-items:flex-start;">
+        <section class="card" style="flex:2 1 420px;padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;">
+            <div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">2026 General Election</h2><div style="font-size:12px;color:var(--color-neutral-600);">Chief and six Councillors</div></div>
+            <a href="#" onClick="{{ nav.elections.go }}" style="font-size:12px;">Open election</a>
+          </div>
+          <div style="padding:8px 20px 16px;">
+            <sc-for list="{{ stageRows }}" as="s" hint-placeholder-count="7">
+              <div style="display:flex;align-items:center;gap:14px;padding:9px 0;border-top:{{ s.border }};">
+                <span style="width:10px;height:10px;border-radius:50%;border:1px solid var(--color-accent);background:{{ s.dot }};flex-shrink:0;"></span>
+                <span style="flex:1;font-size:14px;color:{{ s.fg }};">{{ s.n }}</span>
+                <span style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ s.d }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+        <section class="card" style="flex:1 1 300px;padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:flex-start;">
+            <div><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Recent records</h2><div style="font-size:12px;color:var(--color-neutral-600);">Latest changes to the registers</div></div>
+            <a href="#" onClick="{{ nav.log.go }}" style="font-size:12px;">View log</a>
+          </div>
+          <div style="padding:4px 20px 8px;">
+            <sc-for list="{{ recentLog }}" as="l" hint-placeholder-count="5">
+              <div style="padding:12px 0;border-top:{{ l.border }};">
+                <div style="font-size:14px;">{{ l.action }}</div>
+                <div style="font-size:12px;color:var(--color-neutral-600);margin-top:2px;">{{ l.record }} · {{ l.t }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </div>
+</sc-if>
+
+<sc-if value="{{ isMembers }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div><h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Member registry</h1><p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Band list of record · {{ memberCountLabel }}</p></div>
+        <sc-if value="{{ canMembers }}" hint-placeholder-val="{{ true }}"><button class="btn btn-primary" onClick="{{ openAddMember }}">Register member</button></sc-if>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px;">
+        <input class="input" placeholder="Search by name or registry number" value="{{ q }}" onChange="{{ onQ }}" style="flex:1 1 280px;max-width:420px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <sc-for list="{{ resOpts }}" as="o" hint-placeholder-count="4"><button class="btn {{ o.cls }}" style="padding:5px 12px;font-size:13px;" onClick="{{ o.go }}">{{ o.label }}</button></sc-for>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow-x:auto;">
+        <table class="table" style="width:100%;min-width:720px;">
+          <thead><tr><th>Name</th><th>Registry no.</th><th>Age</th><th>Residence</th><th>Elector</th><th>Status</th></tr></thead>
+          <tbody>
+            <sc-for list="{{ memberRows }}" as="m" hint-placeholder-count="8">
+              <tr onClick="{{ m.open }}" style="cursor:pointer;" style-hover="background:var(--color-neutral-100);">
+                <td><a href="#" onClick="{{ m.open }}" style="text-decoration:none;color:var(--color-text);">{{ m.name }}</a></td>
+                <td style="font-feature-settings:'tnum';">{{ m.reg }}</td>
+                <td style="font-feature-settings:'tnum';">{{ m.age }}</td>
+                <td>{{ m.res }}</td>
+                <td>{{ m.elig }}</td>
+                <td><span class="tag {{ m.tagCls }}">{{ m.status }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+        <sc-if value="{{ noMembers }}" hint-placeholder-val="{{ false }}"><div style="padding:32px;text-align:center;font-style:italic;color:var(--color-neutral-600);">No members match.</div></sc-if>
+      </div>
+</sc-if>
+
+<sc-if value="{{ isMember }}" hint-placeholder-val="{{ false }}">
+      <a href="#" onClick="{{ nav.members.go }}" style="font-size:13px;">← Member registry</a>
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin:16px 0 24px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div style="display:flex;align-items:center;gap:18px;">
+          <span style="width:64px;height:64px;border-radius:50%;border:1px solid var(--color-accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:22px;">{{ mem.initials }}</span>
+          <div>
+            <h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:36px;line-height:1.1;">{{ mem.name }}</h1>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;font-size:13px;color:var(--color-neutral-600);"><span style="font-feature-settings:'tnum';">Registry no. {{ mem.reg }}</span><span class="tag {{ mem.tagCls }}">{{ mem.status }}</span><sc-if value="{{ mem.candidate }}" hint-placeholder-val="{{ false }}"><span class="tag tag-outline">{{ mem.candidate }}</span></sc-if></div>
+          </div>
+        </div>
+        <sc-if value="{{ mem.canAct }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-ghost" onClick="{{ mem.transfer }}">Record transfer out</button>
+            <button class="btn btn-ghost" onClick="{{ mem.deceased }}">Record deceased</button>
+          </div>
+        </sc-if>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start;">
+        <section class="card" style="padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Registration</h2></div>
+          <div style="padding:8px 20px 16px;">
+            <sc-for list="{{ mem.facts }}" as="f" hint-placeholder-count="5">
+              <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:{{ f.border }};font-size:14px;"><span style="color:var(--color-neutral-600);">{{ f.k }}</span><span style="text-align:right;font-feature-settings:'tnum';">{{ f.v }}</span></div>
+            </sc-for>
+          </div>
+        </section>
+        <section class="card" style="padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Residence and voting</h2></div>
+          <div style="padding:16px 20px;display:flex;flex-direction:column;gap:14px;">
+            <div class="field"><label>Residence</label>
+              <select class="input" value="{{ mem.res }}" onChange="{{ mem.onRes }}" disabled="{{ mem.locked }}"><option value="On reserve">On reserve</option><option value="Off reserve">Off reserve</option></select>
+            </div>
+            <div style="font-size:14px;"><span style="color:var(--color-neutral-600);">Address · </span>{{ mem.address }}</div>
+            <div style="font-size:14px;"><span style="color:var(--color-neutral-600);">Elector status · </span>{{ mem.elector }}</div>
+            <div style="font-size:14px;"><span style="color:var(--color-neutral-600);">Ballot · </span>{{ mem.ballot }}</div>
+          </div>
+        </section>
+        <section class="card" style="padding:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">Household</h2></div>
+          <div style="padding:8px 20px 16px;">
+            <sc-for list="{{ mem.household }}" as="h" hint-placeholder-count="2">
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:{{ h.border }};font-size:14px;"><a href="#" onClick="{{ h.open }}">{{ h.name }}</a><span style="color:var(--color-neutral-600);font-feature-settings:'tnum';">Age {{ h.age }}</span></div>
+            </sc-for>
+            <sc-if value="{{ mem.noHousehold }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 0;font-size:14px;font-style:italic;color:var(--color-neutral-600);">No other household members on record.</div></sc-if>
+          </div>
+        </section>
+      </div>
+</sc-if>
+
+<sc-if value="{{ isDocs }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div><h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Governance documents</h1><p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Laws, codes, Band Council Resolutions, policies and minutes</p></div>
+        <sc-if value="{{ canDocs }}" hint-placeholder-val="{{ true }}"><button class="btn btn-primary" onClick="{{ openAddDoc }}">Record document</button></sc-if>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px;">
+        <input class="input" placeholder="Search title or reference" value="{{ docQ }}" onChange="{{ onDocQ }}" style="flex:1 1 260px;max-width:380px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <sc-for list="{{ catOpts }}" as="o" hint-placeholder-count="5"><button class="btn {{ o.cls }}" style="padding:5px 12px;font-size:13px;" onClick="{{ o.go }}">{{ o.label }}</button></sc-for>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow-x:auto;">
+        <table class="table" style="width:100%;min-width:720px;">
+          <thead><tr><th>Title</th><th>Reference</th><th>Type</th><th>Dated</th><th>Version</th><th>Status</th></tr></thead>
+          <tbody>
+            <sc-for list="{{ docRows }}" as="d" hint-placeholder-count="8">
+              <tr onClick="{{ d.open }}" style="cursor:pointer;" style-hover="background:var(--color-neutral-100);">
+                <td>{{ d.title }}</td>
+                <td style="font-feature-settings:'tnum';">{{ d.ref }}</td>
+                <td>{{ d.cat }}</td>
+                <td style="font-feature-settings:'tnum';">{{ d.date }}</td>
+                <td style="font-feature-settings:'tnum';">v{{ d.ver }}</td>
+                <td><span class="tag {{ d.tagCls }}">{{ d.status }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+        <sc-if value="{{ noDocs }}" hint-placeholder-val="{{ false }}"><div style="padding:32px;text-align:center;font-style:italic;color:var(--color-neutral-600);">No documents match.</div></sc-if>
+      </div>
+</sc-if>
+
+<sc-if value="{{ isElections }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);">
+        <div><div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);">Under the OIB Election Code</div><h1 style="margin:6px 0 0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">2026 General Election</h1><p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Chief (1) and Councillors (6) · Polling at the Community Hall · Mail-in ballots for off-reserve electors</p></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <sc-if value="{{ canAddCand }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ openAddCand }}">Add candidate</button></sc-if>
+          <sc-if value="{{ canAdvance }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary" onClick="{{ advance }}">{{ advanceLabel }}</button></sc-if>
+          <sc-if value="{{ canCertify }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary" onClick="{{ certify }}">Certify results</button></sc-if>
+        </div>
+      </div>
+      <div class="card" style="padding:20px;overflow-x:auto;">
+        <div style="display:grid;grid-template-columns:repeat(7,minmax(110px,1fr));min-width:770px;">
+          <sc-for list="{{ stageRows }}" as="s" hint-placeholder-count="7">
+            <div style="display:flex;flex-direction:column;gap:8px;padding-right:12px;">
+              <div style="display:flex;align-items:center;gap:0;"><span style="width:12px;height:12px;border-radius:50%;border:1px solid var(--color-accent);background:{{ s.dot }};flex-shrink:0;"></span><span style="flex:1;height:1px;background:var(--color-divider);margin-left:6px;"></span></div>
+              <div style="font-size:13px;line-height:1.3;color:{{ s.fg }};">{{ s.n }}</div>
+              <div style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum';">{{ s.d }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:24px;">
+        <div class="card" style="padding:20px;"><div style="font-size:13px;color:var(--color-neutral-600);">Eligible electors</div><div style="margin-top:10px;font-family:var(--font-heading);font-size:34px;line-height:1;font-feature-settings:'tnum';">{{ totals.electors }}</div></div>
+        <div class="card" style="padding:20px;"><div style="font-size:13px;color:var(--color-neutral-600);">Candidates</div><div style="margin-top:10px;font-family:var(--font-heading);font-size:34px;line-height:1;font-feature-settings:'tnum';">{{ candCount }}</div></div>
+        <div class="card" style="padding:20px;"><div style="font-size:13px;color:var(--color-neutral-600);">Mail-in packages sent</div><div style="margin-top:10px;font-family:var(--font-heading);font-size:34px;line-height:1;font-feature-settings:'tnum';">212</div></div>
+        <div class="card" style="padding:20px;"><div style="font-size:13px;color:var(--color-neutral-600);">Ballots cast</div><div style="margin-top:10px;font-family:var(--font-heading);font-size:34px;line-height:1;font-feature-settings:'tnum';">{{ ballotsCast }}</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:24px;margin-top:24px;align-items:start;">
+        <sc-for list="{{ races }}" as="r" hint-placeholder-count="2">
+          <section class="card" style="padding:0;">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--color-divider);"><h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;">{{ r.title }}</h2><div style="font-size:12px;color:var(--color-neutral-600);">{{ r.sub }}</div></div>
+            <div style="padding:4px 20px 8px;">
+              <sc-for list="{{ r.rows }}" as="c" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:{{ c.border }};">
+                  <a href="#" onClick="{{ c.open }}" style="flex:1;font-size:14px;text-decoration:none;color:var(--color-text);">{{ c.name }}</a>
+                  <sc-if value="{{ c.elected }}" hint-placeholder-val="{{ false }}"><span class="tag tag-accent">Elected</span></sc-if>
+                  <sc-if value="{{ c.editVotes }}" hint-placeholder-val="{{ false }}"><input class="input" type="number" min="0" value="{{ c.votes }}" onChange="{{ c.onVotes }}" aria-label="Votes" style="width:90px;padding:4px 8px;text-align:right;font-feature-settings:'tnum';"></sc-if>
+                  <sc-if value="{{ c.showVotes }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-feature-settings:'tnum';min-width:48px;text-align:right;">{{ c.votes }}</span></sc-if>
+                  <sc-if value="{{ c.canWithdraw }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" style="padding:3px 10px;font-size:12px;" onClick="{{ c.withdraw }}">Withdraw</button></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </sc-for>
+      </div>
+      <h2 style="margin:40px 0 4px;font-family:var(--font-heading);font-weight:500;font-size:28px;">Past elections</h2>
+      <p style="margin:0 0 16px;font-size:14px;color:var(--color-neutral-600);">Certified results of record</p>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <sc-for list="{{ pastRows }}" as="e" hint-placeholder-count="2">
+          <section class="card" style="padding:0;">
+            <button onClick="{{ e.toggle }}" style="all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;" style-hover="background:var(--color-neutral-100);">
+              <div><div style="font-family:var(--font-heading);font-weight:600;font-size:20px;">{{ e.name }}</div><div style="font-size:12px;color:var(--color-neutral-600);">{{ e.date }} · {{ e.scope }} · Turnout {{ e.turnout }}</div></div>
+              <span style="font-size:13px;color:var(--color-accent-700);">{{ e.toggleLabel }}</span>
+            </button>
+            <sc-if value="{{ e.open }}" hint-placeholder-val="{{ false }}">
+              <div style="border-top:1px solid var(--color-divider);overflow-x:auto;">
+                <table class="table" style="width:100%;">
+                  <thead><tr><th>Position</th><th>Candidate</th><th style="text-align:right;">Votes</th><th>Result</th></tr></thead>
+                  <tbody><sc-for list="{{ e.rows }}" as="x" hint-placeholder-count="4"><tr><td>{{ x.pos }}</td><td>{{ x.name }}</td><td style="text-align:right;font-feature-settings:'tnum';">{{ x.votes }}</td><td>{{ x.result }}</td></tr></sc-for></tbody>
+                </table>
+              </div>
+            </sc-if>
+          </section>
+        </sc-for>
+      </div>
+</sc-if>
+
+<sc-if value="{{ isLog }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--color-divider);"><h1 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:40px;line-height:1.1;">Records log</h1><p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-600);">Every change to members, documents and elections, in order</p></div>
+      <div class="card" style="padding:0;overflow-x:auto;">
+        <table class="table" style="width:100%;min-width:680px;">
+          <thead><tr><th>When</th><th>Action</th><th>Record</th><th>By</th></tr></thead>
+          <tbody><sc-for list="{{ logRows }}" as="l" hint-placeholder-count="8"><tr><td style="white-space:nowrap;font-feature-settings:'tnum';">{{ l.t }}</td><td>{{ l.action }}</td><td>{{ l.record }}</td><td>{{ l.who }}</td></tr></sc-for></tbody>
+        </table>
+      </div>
+</sc-if>
+    </div>
+  </main>
+
+  <sc-if value="{{ docOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeDoc }}" style="position:fixed;inset:0;z-index:20;background:color-mix(in srgb, var(--color-neutral-900) 30%, transparent);"></div>
+    <aside data-screen-label="Document detail" style="position:fixed;top:0;right:0;bottom:0;z-index:21;width:480px;max-width:92vw;background:var(--color-bg);border-left:1px solid var(--color-divider);box-shadow:var(--shadow-lg);overflow-y:auto;">
+      <div style="padding:24px 28px;border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;gap:12px;">
+        <div><div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);">{{ doc.cat }} · {{ doc.ref }}</div><h2 style="margin:6px 0 0;font-family:var(--font-heading);font-weight:500;font-size:28px;line-height:1.15;">{{ doc.title }}</h2><div style="margin-top:8px;display:flex;gap:8px;align-items:center;"><span class="tag {{ doc.tagCls }}">{{ doc.status }}</span><span style="font-size:12px;color:var(--color-neutral-600);">v{{ doc.ver }} · {{ doc.date }}</span></div></div>
+        <button class="btn btn-ghost btn-icon" aria-label="Close" onClick="{{ closeDoc }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+      </div>
+      <div style="padding:24px 28px;display:flex;flex-direction:column;gap:24px;">
+        <p style="margin:0;font-size:15px;line-height:1.6;text-align:justify;hyphens:auto;">{{ doc.summary }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="#" onClick="{{ doc.download }}" class="btn btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path><path d="M12 15V3"></path></svg>Download PDF</a>
+          <sc-if value="{{ doc.canAdopt }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary" onClick="{{ doc.adopt }}">Adopt by resolution</button></sc-if>
+          <sc-if value="{{ doc.canRepeal }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ doc.repeal }}">Mark repealed</button></sc-if>
+        </div>
+        <div>
+          <h3 style="margin:0 0 8px;font-family:var(--font-heading);font-weight:600;font-size:18px;">Version history</h3>
+          <sc-for list="{{ doc.versions }}" as="v" hint-placeholder-count="2">
+            <div style="display:flex;gap:14px;padding:10px 0;border-top:1px solid var(--color-divider);font-size:14px;"><span style="font-feature-settings:'tnum';color:var(--color-accent-700);min-width:28px;">v{{ v.v }}</span><div><div>{{ v.note }}</div><div style="font-size:12px;color:var(--color-neutral-600);">{{ v.d }}</div></div></div>
+          </sc-for>
+        </div>
+      </div>
+    </aside>
+  </sc-if>
+
+  <sc-if value="{{ dialogOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="dialog-backdrop" style="position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div class="dialog" role="dialog" style="width:460px;max-width:100%;">
+        <div class="dialog-title">{{ dialogTitle }}</div>
+        <div class="dialog-body" style="display:flex;flex-direction:column;gap:14px;">
+          <sc-if value="{{ dlgMember }}" hint-placeholder-val="{{ false }}">
+            <div class="field"><label>Full name</label><input class="input" value="{{ form.name }}" onChange="{{ fset.name }}"></div>
+            <div class="field"><label>Date of birth</label><input class="input" type="date" value="{{ form.dob }}" onChange="{{ fset.dob }}"></div>
+            <div class="field"><label>Residence</label><select class="input" value="{{ form.res }}" onChange="{{ fset.res }}"><option value="On reserve">On reserve</option><option value="Off reserve">Off reserve</option></select></div>
+            <div class="field"><label>Address</label><input class="input" value="{{ form.address }}" onChange="{{ fset.address }}"></div>
+          </sc-if>
+          <sc-if value="{{ dlgDoc }}" hint-placeholder-val="{{ false }}">
+            <div class="field"><label>Title</label><input class="input" value="{{ form.title }}" onChange="{{ fset.title }}"></div>
+            <div class="field"><label>Type</label><select class="input" value="{{ form.cat }}" onChange="{{ fset.cat }}"><option>Laws &amp; codes</option><option>Resolutions</option><option>Policies</option><option>Minutes</option></select></div>
+            <div class="field"><label>Reference</label><input class="input" value="{{ form.ref }}" onChange="{{ fset.ref }}" placeholder="e.g. BCR 2026-045"></div>
+            <div class="field"><label>Summary</label><textarea class="input" rows="3" value="{{ form.summary }}" onChange="{{ fset.summary }}"></textarea></div>
+          </sc-if>
+          <sc-if value="{{ dlgCand }}" hint-placeholder-val="{{ false }}">
+            <div class="field"><label>Elector</label><select class="input" value="{{ form.mid }}" onChange="{{ fset.mid }}"><sc-for list="{{ candOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></div>
+            <div class="field"><label>Position</label><select class="input" value="{{ form.pos }}" onChange="{{ fset.pos }}"><option>Chief</option><option>Councillor</option></select></div>
+            <p style="margin:0;font-size:13px;color:var(--color-neutral-600);">Nominee must be an elector, nominated and seconded at the nomination meeting.</p>
+          </sc-if>
+          <sc-if value="{{ formErr }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:var(--color-accent-800);">{{ formErr }}</div></sc-if>
+        </div>
+        <div class="dialog-actions"><button class="btn btn-ghost" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ submitDialog }}">Save to record</button></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div class="card elev-md" style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:40;padding:12px 18px;background:var(--color-bg);font-size:14px;">{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  static STAGES = [['Notice of election','Sep 15'],['Nomination meeting','Oct 1'],['Candidate list posted','Oct 8'],['Advance poll','Nov 10'],['Election day','Nov 24'],['Count & results','Nov 24'],['Appeal period closed','Dec 22']];
+  static USERS = {'Band Administrator':['Tom Adeyemi','TA'],'Electoral Officer':['Peter Vance','PV'],'Council member':['Marcus Chen','MC']};
+  static MEMBERS = [
+    ['m1','Ada Marchand','5890010231','1958-04-12','On reserve','Lot 12, Black Sage Rd','h1'],
+    ['m2','Leon Gabriel','5890010488','1966-09-03','On reserve','Lot 4, Rd 22','h2'],
+    ['m3','Rose Whitehead','5890011207','1974-01-27','On reserve','Lot 31, Hwy 97','h3'],
+    ['m4','Daniel Pierre','5890011652','1981-06-15','Off reserve','Penticton, BC','h4'],
+    ['m5','Kim Antoine','5890012019','1979-11-08','On reserve','Lot 8, Rd 22','h5'],
+    ['m6','Marcus Holt','5890012344','1985-03-21','On reserve','Lot 17, Black Sage Rd','h6'],
+    ['m7','Jolene Swan','5890012790','1990-07-30','Off reserve','Kelowna, BC','h7'],
+    ['m8','Ray Cardinal','5890013106','1971-12-02','On reserve','Lot 2, Senior Centre Rd','h8'],
+    ['m9','Nora Ellis','5890013458','1988-05-11','On reserve','Lot 25, Hwy 97','h9'],
+    ['m10','Tyler Morin','5890013872','1995-02-19','Off reserve','Vancouver, BC','h10'],
+    ['m11','Grace Lindley','5890014205','1983-08-24','On reserve','Lot 40, Rd 22','h11'],
+    ['m12','Owen Starr','5890014551','1992-10-06','On reserve','Lot 6, Black Sage Rd','h12'],
+    ['m13','Faye Morin','5890015830','2012-04-14','Off reserve','Vancouver, BC','h10'],
+    ['m14','Ben Holt','5890016102','2010-09-09','On reserve','Lot 17, Black Sage Rd','h6'],
+    ['m15','Iris Gabriel','5890010932','1969-02-28','On reserve','Lot 4, Rd 22','h2'],
+    ['m16','Carl Tom','5890011890','1977-05-05','Off reserve','Oliver, BC','h16'],
+    ['m17','Lena Swan','5890016744','2015-12-20','Off reserve','Kelowna, BC','h7'],
+    ['m18','Wes Dunn','5890011021','1962-03-14','On reserve','Lot 9, Hwy 97','h18']
+  ].map(r=>({id:r[0],name:r[1],reg:r[2],dob:r[3],res:r[4],address:r[5],hh:r[6],status:'Active',registered:r[3]<'2000'?'Jun 1987':'At birth'}));
+  static DOCS = [
+    {id:'d1',title:'Election Code',ref:'LAW-2019-02',cat:'Laws & codes',date:'Mar 14, 2019',status:'In force',ver:3,summary:'Sets the term of office, eligibility of electors and candidates, the nomination meeting, polling and mail-in ballot procedures, and the appeal process for Chief and Council elections.',versions:[{v:3,d:'Mar 14, 2019',note:'Amended — mail-in ballots for all off-reserve electors'},{v:2,d:'Apr 2, 2011',note:'Amended — four-year terms'},{v:1,d:'Jan 10, 1998',note:'Adopted by community referendum'}]},
+    {id:'d2',title:'Membership Code',ref:'LAW-1987-01',cat:'Laws & codes',date:'Jun 1, 1987',status:'In force',ver:2,summary:'Defines who is entitled to membership in the Band, how applications are made and reviewed, and how the Band list is kept by the Membership Clerk.',versions:[{v:2,d:'Sep 9, 2004',note:'Amended — appeal to Membership Committee'},{v:1,d:'Jun 1, 1987',note:'Adopted; Band assumes control of its list'}]},
+    {id:'d3',title:'Financial Administration Law',ref:'LAW-2016-01',cat:'Laws & codes',date:'Feb 22, 2016',status:'In force',ver:1,summary:'Establishes the Finance and Audit Committee, annual budget approval, signing authorities and financial reporting to members.',versions:[{v:1,d:'Feb 22, 2016',note:'Enacted by Council'}]},
+    {id:'d4',title:'Land Code amendment — leasing terms',ref:'LAW-2026-03',cat:'Laws & codes',date:'Oct 6, 2026',status:'Draft',ver:1,summary:'Proposed amendment to residential leasing provisions; for community information sessions ahead of ratification.',versions:[{v:1,d:'Oct 6, 2026',note:'First draft tabled at Council'}]},
+    {id:'d5',title:'Appoint Electoral Officer for 2026 General Election',ref:'BCR 2026-031',cat:'Resolutions',date:'Aug 18, 2026',status:'In force',ver:1,summary:'Council appoints Peter Vance as Electoral Officer and sets the date of the nomination meeting for October 1, 2026.',versions:[{v:1,d:'Aug 18, 2026',note:'Passed — quorum present'}]},
+    {id:'d6',title:'Approve 2026–27 housing allocations',ref:'BCR 2026-038',cat:'Resolutions',date:'Sep 21, 2026',status:'In force',ver:1,summary:'Approves the housing committee\u2019s allocation list for eight new units on Rd 22.',versions:[{v:1,d:'Sep 21, 2026',note:'Passed'}]},
+    {id:'d7',title:'Records retention and privacy policy',ref:'POL-2021-04',cat:'Policies',date:'May 3, 2021',status:'In force',ver:2,summary:'How long member, governance and election records are kept, who may access them, and how personal information is protected.',versions:[{v:2,d:'Jan 15, 2024',note:'Updated retention schedule'},{v:1,d:'May 3, 2021',note:'Adopted'}]},
+    {id:'d8',title:'Council meeting minutes — October 6, 2026',ref:'MIN-2026-19',cat:'Minutes',date:'Oct 6, 2026',status:'In force',ver:1,summary:'Regular meeting of Chief and Council. Land Code amendment tabled; election timeline confirmed; housing update received.',versions:[{v:1,d:'Oct 13, 2026',note:'Approved as circulated'}]},
+    {id:'d9',title:'Elders honoraria policy',ref:'POL-2014-02',cat:'Policies',date:'Jul 7, 2014',status:'Repealed',ver:1,summary:'Replaced by the 2023 Community Supports policy.',versions:[{v:1,d:'Jul 7, 2014',note:'Adopted'}]}
+  ];
+  static CANDS = [['m2','Chief'],['m3','Chief'],['m4','Councillor'],['m5','Councillor'],['m6','Councillor'],['m7','Councillor'],['m8','Councillor'],['m9','Councillor'],['m11','Councillor'],['m12','Councillor']].map(c=>({mid:c[0],pos:c[1]}));
+  static SAMPLE_VOTES = {m2:388,m3:352,m4:301,m5:417,m6:276,m7:233,m8:362,m9:398,m11:344,m12:259};
+  static PAST = [
+    {id:'e2024',name:'2024 By-election',date:'Jun 4, 2024',scope:'Councillor (1 seat)',turnout:'44%',rows:[['Councillor','Nora Ellis',288,'Elected'],['Councillor','Carl Tom',176,'—']]},
+    {id:'e2022',name:'2022 General Election',date:'Nov 22, 2022',scope:'Chief and 6 Councillors',turnout:'61%',rows:[['Chief','Leon Gabriel',402,'Elected'],['Chief','Wes Dunn',231,'—'],['Councillor','Kim Antoine',433,'Elected'],['Councillor','Ray Cardinal',391,'Elected'],['Councillor','Rose Whitehead',377,'Elected'],['Councillor','Grace Lindley',350,'Elected'],['Councillor','Marcus Holt',318,'Elected'],['Councillor','Ada Marchand',296,'Elected (resigned 2024)'],['Councillor','Carl Tom',214,'—']]}
+  ];
+  static LOG = [
+    ['Oct 13 · 4:10 PM','Peter Vance','Candidate list posted','2026 General Election'],
+    ['Oct 13 · 10:02 AM','Tom Adeyemi','Minutes approved','MIN-2026-19'],
+    ['Oct 6 · 7:45 PM','Tom Adeyemi','Draft tabled','LAW-2026-03 Land Code amendment'],
+    ['Oct 1 · 8:30 PM','Peter Vance','Nominations recorded (10)','2026 General Election'],
+    ['Sep 21 · 6:15 PM','Tom Adeyemi','Resolution recorded','BCR 2026-038'],
+    ['Sep 15 · 9:00 AM','Peter Vance','Notice of election posted','2026 General Election'],
+    ['Sep 2 · 11:20 AM','Tom Adeyemi','Member registered','Lena Swan']
+  ].map(r=>({t:r[0],who:r[1],action:r[2],record:r[3]}));
+
+  state = {page:'dash',role:'Band Administrator',memberId:null,q:'',res:'All',docCat:'All',docQ:'',docId:null,dialog:null,form:{},formErr:'',stage:2,cands:Component.CANDS,votes:{},past:Component.PAST,docs:Component.DOCS,members:Component.MEMBERS,log:Component.LOG,toast:'',openPast:'e2022',nextReg:16900};
+  mainRef = React.createRef();
+
+
+  nexinVals(){
+    const N=window.NEXIN;if(!N)return {sw:{apps:[],toggle:()=>{},close:()=>{}},personaOpts:[],personaId:'',onPersona:()=>{}};
+    const p=N.current(),mine=N.appsFor(p);
+    return {
+      sw:{open:!!this.state.swOpen,toggle:()=>this.setState(st=>({swOpen:!st.swOpen})),close:()=>this.setState({swOpen:false}),
+        note:mine.length+' of '+N.apps.length+' apps available to '+p.name,
+        apps:mine.map(a=>({...a,isCur:a.id==='band',roleLabel:'Your role · '+p.roles[a.id],bg:a.id==='band'?'color-mix(in srgb, var(--color-accent) 10%, transparent)':'transparent',go:e=>{if(a.id==='band'){e.preventDefault();this.setState({swOpen:false});}}}))},
+      personaId:p.id,
+      personaOpts:N.personas.map(x=>({id:x.id,label:'Preview as '+x.name+' · '+(x.roles['band']||'no access')})),
+      onPersona:e=>{const x=N.personas.find(y=>y.id===e.target.value);N.setPersona(x.id);if(x.roles['band'])this.setRole(x.roles['band']);else N.open(N.appsFor(x)[0].id);}
+    };
+  }
+  componentDidMount(){
+    const sync=()=>{const N=window.NEXIN;if(!N)return void(this._nx=setTimeout(sync,50));const p=N.current();if(!p.roles['band'])return N.open(N.appsFor(p)[0].id);if(p.roles['band']!==this.state.role)this.setRole(p.roles['band']);else this.forceUpdate();};
+    sync();
+  }
+  setRole(role){this.setState({role,docId:null,dialog:null,swOpen:false});}
+  age(dob){const b=new Date(dob),t=new Date('2026-10-20');let a=t.getFullYear()-b.getFullYear();const m=t.getMonth()-b.getMonth();if(m<0||(m===0&&t.getDate()<b.getDate()))a--;return a;}
+  initials(n){return n.split(' ').map(w=>w[0]).slice(0,2).join('');}
+  go(page,extra){this.setState({page,...(extra||{})});if(this.mainRef.current)this.mainRef.current.scrollTop=0;}
+  flash(msg){this.setState({toast:msg});clearTimeout(this._tt);this._tt=setTimeout(()=>this.setState({toast:''}),2600);}
+  addLog(action,record){const d=new Date();const t='Oct 20 · '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});const who=Component.USERS[this.state.role][0];this.setState(s=>({log:[{t,who,action,record},...s.log]}));}
+  mem(id){return this.state.members.find(m=>m.id===id);}
+  updMember(id,patch,action){const m=this.mem(id);this.setState(s=>({members:s.members.map(x=>x.id===id?{...x,...patch}:x)}));this.addLog(action,m.name);this.flash(action+' — '+m.name);}
+  updDoc(id,fn,action){const d=this.state.docs.find(x=>x.id===id);this.setState(s=>({docs:s.docs.map(x=>x.id===id?fn(x):x)}));this.addLog(action,d.ref+' '+d.title);this.flash(action);}
+
+  submitDialog(){
+    const s=this.state,f=s.form;
+    if(s.dialog==='member'){
+      if(!f.name||!f.dob)return this.setState({formErr:'Name and date of birth are required.'});
+      const id='m'+Date.now(),reg='58900'+s.nextReg;
+      this.setState(st=>({members:[...st.members,{id,name:f.name,reg,dob:f.dob,res:f.res||'On reserve',address:f.address||'—',hh:'h'+id,status:'Active',registered:'Oct 20, 2026'}],nextReg:st.nextReg+1,dialog:null}));
+      this.addLog('Member registered',f.name);this.flash('Registered '+f.name+' · '+reg);
+    } else if(s.dialog==='doc'){
+      if(!f.title||!f.ref)return this.setState({formErr:'Title and reference are required.'});
+      const id='d'+Date.now();
+      this.setState(st=>({docs:[{id,title:f.title,ref:f.ref,cat:f.cat||'Laws & codes',date:'Oct 20, 2026',status:'Draft',ver:1,summary:f.summary||'No summary recorded.',versions:[{v:1,d:'Oct 20, 2026',note:'Recorded as draft'}]},...st.docs],dialog:null,docCat:'All'}));
+      this.addLog('Document recorded (draft)',f.ref+' '+f.title);this.flash('Recorded '+f.ref+' as draft');
+    } else if(s.dialog==='cand'){
+      const opts=this.candOpts();const mid=f.mid||(opts[0]&&opts[0].id);
+      if(!mid)return this.setState({formErr:'No eligible electors remain.'});
+      this.setState(st=>({cands:[...st.cands,{mid,pos:f.pos||'Councillor'}],dialog:null}));
+      this.addLog('Candidate added ('+(f.pos||'Councillor')+')',this.mem(mid).name);this.flash('Candidate added');
+    }
+  }
+  candOpts(){const s=this.state;return s.members.filter(m=>m.status==='Active'&&this.age(m.dob)>=18&&!s.cands.some(c=>c.mid===m.id)).map(m=>({id:m.id,name:m.name}));}
+  elected(){const s=this.state,v=s.votes,out={};['Chief','Councillor'].forEach(p=>{const n=p==='Chief'?1:6;s.cands.filter(c=>c.pos===p).sort((a,b)=>(+v[b.mid]||0)-(+v[a.mid]||0)).slice(0,n).forEach(c=>out[c.mid]=true);});return out;}
+
+  renderVals(){
+    const s=this.state,role=s.role,u=Component.USERS[role];
+    const canMembers=role==='Band Administrator',canDocs=role==='Band Administrator',canElect=role!=='Council member';
+    const navItem=k=>{const on=s.page===k||(k==='members'&&s.page==='member');return {go:e=>{e&&e.preventDefault();this.go(k,{docId:null});},bg:on?'color-mix(in srgb, var(--color-accent) 16%, transparent)':'transparent',fg:on?'var(--color-neutral-100)':'var(--color-neutral-300)'};};
+    const nav={};['dash','members','docs','elections','log'].forEach(k=>nav[k]=navItem(k));
+    const active=s.members.filter(m=>m.status==='Active');
+    const extra=1394; // sample: registry total beyond the records shown
+    const onRes=active.filter(m=>m.res==='On reserve').length;
+    const electorsN=active.filter(m=>this.age(m.dob)>=18).length;
+    const totals={members:(active.length+extra).toLocaleString(),onRes:(onRes+512).toLocaleString(),offRes:(active.length-onRes+882).toLocaleString(),electors:(electorsN+1024).toLocaleString(),bcrs:s.docs.filter(d=>d.cat==='Resolutions'&&d.date.includes('2026')).length+36,drafts:s.docs.filter(d=>d.status==='Draft').length};
+    const stageRows=Component.STAGES.map((x,i)=>({n:x[0],d:x[1],border:i?'1px solid var(--color-divider)':'none',dot:i<s.stage?'var(--color-accent)':i===s.stage?'var(--color-accent-200)':'transparent',fg:i<=s.stage?'var(--color-text)':'var(--color-neutral-600)'}));
+    const fset={};['name','dob','res','address','title','cat','ref','summary','mid','pos'].forEach(k=>fset[k]=e=>{const v=e.target.value;this.setState(st=>({form:{...st.form,[k]:v},formErr:''}));});
+    const statusTag=st=>st==='Active'||st==='In force'?'tag-accent':st==='Draft'?'tag-outline':'tag-neutral';
+    const q=s.q.toLowerCase();
+    const memberRows=s.members.filter(m=>(s.res==='All'||m.res===s.res||(s.res==='Electors'&&m.status==='Active'&&this.age(m.dob)>=18))&&(!q||m.name.toLowerCase().includes(q)||m.reg.includes(q))).sort((a,b)=>a.name.split(' ').pop().localeCompare(b.name.split(' ').pop())).map(m=>{const a=this.age(m.dob);return {name:m.name,reg:m.reg,age:a,res:m.res,elig:m.status==='Active'&&a>=18?'Yes':'—',status:m.status,tagCls:statusTag(m.status),open:e=>{e&&e.preventDefault&&e.preventDefault();e&&e.stopPropagation&&e.stopPropagation();this.go('member',{memberId:m.id});}};});
+    const resOpts=['All','On reserve','Off reserve','Electors'].map(o=>({label:o,cls:s.res===o?'btn-secondary':'btn-ghost',go:()=>this.setState({res:o})}));
+    let mem={};const m=s.memberId&&this.mem(s.memberId);
+    if(m){const a=this.age(m.dob),elig=m.status==='Active'&&a>=18,cand=s.cands.find(c=>c.mid===m.id),hh=s.members.filter(x=>x.hh===m.hh&&x.id!==m.id);
+      mem={...m,initials:this.initials(m.name),tagCls:statusTag(m.status),candidate:cand?'2026 candidate · '+cand.pos:'',canAct:canMembers&&m.status==='Active',locked:!canMembers||m.status!=='Active',
+        facts:[['Registry number',m.reg],['Date of birth',new Date(m.dob+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})],['Age',a],['Registered',m.registered],['Membership status',m.status]].map((f,i)=>({k:f[0],v:f[1],border:i?'1px solid var(--color-divider)':'none'})),
+        elector:elig?'Eligible elector':a<18?'Not eligible — under 18':'Not eligible',ballot:!elig?'—':m.res==='On reserve'?'In person · Community Hall':'Mail-in package',
+        household:hh.map((x,i)=>({name:x.name,age:this.age(x.dob),border:i?'1px solid var(--color-divider)':'none',open:e=>{e.preventDefault();this.go('member',{memberId:x.id});}})),noHousehold:!hh.length,
+        onRes:e=>this.updMember(m.id,{res:e.target.value},'Residence changed to '+e.target.value.toLowerCase()),
+        transfer:()=>this.updMember(m.id,{status:'Transferred'},'Transfer out recorded'),
+        deceased:()=>this.updMember(m.id,{status:'Deceased'},'Death recorded')};}
+    const dq=s.docQ.toLowerCase();
+    const docRows=s.docs.filter(d=>(s.docCat==='All'||d.cat===s.docCat)&&(!dq||d.title.toLowerCase().includes(dq)||d.ref.toLowerCase().includes(dq))).map(d=>({...d,tagCls:statusTag(d.status),open:()=>this.setState({docId:d.id})}));
+    const catOpts=['All','Laws & codes','Resolutions','Policies','Minutes'].map(o=>({label:o,cls:s.docCat===o?'btn-secondary':'btn-ghost',go:()=>this.setState({docCat:o})}));
+    let doc={};const d=s.docId&&s.docs.find(x=>x.id===s.docId);
+    if(d)doc={...d,tagCls:statusTag(d.status),canAdopt:canDocs&&d.status==='Draft',canRepeal:canDocs&&d.status==='In force',
+      download:e=>{e.preventDefault();this.flash('Download placeholder — '+d.ref+'.pdf');},
+      adopt:()=>this.updDoc(d.id,x=>({...x,status:'In force',date:'Oct 20, 2026',ver:x.ver+1,versions:[{v:x.ver+1,d:'Oct 20, 2026',note:'Adopted by Council resolution'},...x.versions]}),'Adopted by resolution'),
+      repeal:()=>this.updDoc(d.id,x=>({...x,status:'Repealed',versions:[{v:x.ver,d:'Oct 20, 2026',note:'Marked repealed'},...x.versions]}),'Marked repealed')};
+    const showVotes=s.stage>=5,editVotes=s.stage===5&&canElect,el=s.stage===6?this.elected():{};
+    const races=['Chief','Councillor'].map(p=>{let cs=s.cands.filter(c=>c.pos===p);if(showVotes)cs=[...cs].sort((a,b)=>(+s.votes[b.mid]||0)-(+s.votes[a.mid]||0));
+      return {title:p==='Chief'?'Chief':'Councillors',sub:(p==='Chief'?'1 seat · ':'6 seats · ')+cs.length+' candidates',rows:cs.map((c,i)=>{const cm=this.mem(c.mid);return {name:cm.name,border:i?'1px solid var(--color-divider)':'none',votes:s.votes[c.mid]??'',editVotes,showVotes:showVotes&&!editVotes,elected:!!el[c.mid],canWithdraw:canElect&&s.stage<=2,
+        open:e=>{e.preventDefault();this.go('member',{memberId:c.mid});},
+        onVotes:e=>{const v=e.target.value;this.setState(st=>({votes:{...st.votes,[c.mid]:v}}));},
+        withdraw:()=>{this.setState(st=>({cands:st.cands.filter(x=>x.mid!==c.mid)}));this.addLog('Candidate withdrawn',cm.name);this.flash(cm.name+' withdrawn');}};})};});
+    const chiefVotes=s.cands.filter(c=>c.pos==='Chief').reduce((a,c)=>a+(+s.votes[c.mid]||0),0);
+    const pastRows=s.past.map(e=>({...e,open:s.openPast===e.id,toggleLabel:s.openPast===e.id?'Hide results':'Show results',toggle:()=>this.setState({openPast:s.openPast===e.id?null:e.id}),rows:e.rows.map(r=>({pos:r[0],name:r[1],votes:r[2],result:r[3]}))}));
+    const labels={dash:'Overview',members:'Member registry',member:'Member record',docs:'Governance',elections:'Elections',log:'Records log'};
+    return {
+      nav,role,user:{name:u[0],initials:u[1]},mainRef:this.mainRef,pageLabel:labels[s.page],
+      ...this.nexinVals(),
+      permNote:role==='Band Administrator'?'Full access · members, documents and elections':role==='Electoral Officer'?'Elections access · registry and documents are read-only':'Read-only access',
+      isDash:s.page==='dash',isMembers:s.page==='members',isMember:s.page==='member'&&!!m,isDocs:s.page==='docs',isElections:s.page==='elections',isLog:s.page==='log',
+      totals,stageRows,stageNow:'Now: '+Component.STAGES[s.stage][0].toLowerCase(),recentLog:s.log.slice(0,5).map((l,i)=>({...l,border:i?'1px solid var(--color-divider)':'none'})),
+      canMembers,canDocs,q:s.q,onQ:e=>this.setState({q:e.target.value}),resOpts,memberRows,noMembers:!memberRows.length,memberCountLabel:'showing '+s.members.length+' sample records of '+totals.members,
+      mem,docQ:s.docQ,onDocQ:e=>this.setState({docQ:e.target.value}),catOpts,docRows,noDocs:!docRows.length,docOpen:!!d,doc,closeDoc:()=>this.setState({docId:null}),
+      openAddMember:()=>this.setState({dialog:'member',form:{res:'On reserve'},formErr:''}),
+      openAddDoc:()=>this.setState({dialog:'doc',form:{cat:'Laws & codes'},formErr:''}),
+      openAddCand:()=>{const o=this.candOpts();this.setState({dialog:'cand',form:{mid:o[0]&&o[0].id,pos:'Councillor'},formErr:''});},
+      candOpts:this.candOpts(),
+      dialogOpen:!!s.dialog,dlgMember:s.dialog==='member',dlgDoc:s.dialog==='doc',dlgCand:s.dialog==='cand',dialogTitle:{member:'Register member',doc:'Record governance document',cand:'Add candidate'}[s.dialog]||'',
+      form:s.form,fset,formErr:s.formErr,closeDialog:()=>this.setState({dialog:null}),submitDialog:()=>this.submitDialog(),
+      canAddCand:canElect&&s.stage<=2,canAdvance:canElect&&s.stage<5,canCertify:canElect&&s.stage===5,
+      advanceLabel:s.stage<5?'Advance to '+Component.STAGES[s.stage+1][0].toLowerCase():'',
+      advance:()=>{const n=s.stage+1;this.setState(st=>({stage:n,votes:n===5?{...Component.SAMPLE_VOTES,...st.votes}:st.votes}));this.addLog('Stage reached: '+Component.STAGES[n][0],'2026 General Election');this.flash(Component.STAGES[n][0]+(n===5?' — returning officer\u2019s tally loaded, edit before certifying':''));},
+      certify:()=>{const e=this.elected();this.setState(st=>({stage:6,openPast:'e2026',past:[{id:'e2026',name:'2026 General Election',date:'Nov 24, 2026',scope:'Chief and 6 Councillors',turnout:Math.round(chiefVotes/(electorsN+1024)*100)+'%',rows:['Chief','Councillor'].flatMap(p=>st.cands.filter(c=>c.pos===p).sort((a,b)=>(+st.votes[b.mid]||0)-(+st.votes[a.mid]||0)).map(c=>[p,this.mem(c.mid).name,+st.votes[c.mid]||0,e[c.mid]?'Elected':'—']))},...st.past]}));this.addLog('Results certified','2026 General Election');this.flash('Results certified and added to the record');},
+      races,candCount:s.cands.length,ballotsCast:showVotes?chiefVotes.toLocaleString():'—',pastRows,
+      logRows:s.log,toast:s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

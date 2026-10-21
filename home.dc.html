@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Nexin · Osoyoos Indian Band</title>
+<link rel="stylesheet" href="_ds/classical-e93873a3-be33-4b8e-a9a4-ca7980c7f1ff/styles.css">
+<script src="_ds/classical-e93873a3-be33-4b8e-a9a4-ca7980c7f1ff/_ds_bundle.js"></script>
+<script src="./nexin.js"></script>
+<style>
+html,body{margin:0;min-height:100%;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);}
+a{color:var(--color-accent-700);}
+a:hover{color:var(--color-accent-800);}
+</style>
+</helmet>
+<div data-screen-label="Nexin home" style="min-height:100vh;display:flex;flex-direction:column;">
+  <header style="display:flex;align-items:center;gap:12px;padding:20px 32px;border-bottom:1px solid var(--color-divider);">
+    <span style="width:36px;height:36px;border:1px solid var(--color-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:20px;color:var(--color-accent-700);">N</span>
+    <div style="display:flex;flex-direction:column;line-height:1.15;"><span style="font-family:var(--font-heading);font-weight:600;font-size:22px;">Nexin</span><span style="font-size:11px;color:var(--color-neutral-600);">Osoyoos Indian Band</span></div>
+  </header>
+  <main style="flex:1;width:100%;max-width:880px;margin:0 auto;padding:64px 32px 80px;box-sizing:border-box;">
+    <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);">Prototype · sample data</div>
+    <h1 style="margin:10px 0 0;font-family:var(--font-heading);font-weight:400;font-size:52px;line-height:1.05;">Band operations, in one place</h1>
+    <p style="margin:16px 0 0;max-width:600px;font-size:16px;line-height:1.6;color:var(--color-neutral-700);text-wrap:pretty;">Choose who to preview as, then open an app. Each person sees only the apps and actions their role allows.</p>
+
+    <div style="margin-top:40px;display:flex;flex-direction:column;gap:8px;max-width:420px;">
+      <label style="font-size:13px;color:var(--color-neutral-600);">Preview as</label>
+      <select class="input" value="{{ personaId }}" onChange="{{ onPersona }}">
+        <sc-for list="{{ personas }}" as="o" hint-placeholder-count="4"><option value="{{ o.id }}">{{ o.label }}</option></sc-for>
+      </select>
+    </div>
+
+    <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+      <sc-for list="{{ apps }}" as="a" hint-placeholder-count="2">
+        <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:14px;opacity:{{ a.opacity }};">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <span style="width:44px;height:44px;border:1px solid var(--color-accent);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:16px;color:var(--color-accent-800);">{{ a.mark }}</span>
+            <div><div style="font-family:var(--font-heading);font-weight:600;font-size:24px;line-height:1.1;">{{ a.name }}</div><div style="font-size:13px;color:var(--color-neutral-600);">{{ a.desc }}</div></div>
+          </div>
+          <div style="font-size:13px;color:var(--color-accent-700);">{{ a.roleLabel }}</div>
+          <sc-if value="{{ a.allowed }}" hint-placeholder-val="{{ true }}"><a class="btn btn-primary" href="{{ a.href }}" style="align-self:flex-start;text-decoration:none;">Open {{ a.name }}</a></sc-if>
+          <sc-if value="{{ a.denied }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-style:italic;color:var(--color-neutral-600);">Not available for this person</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </main>
+  <footer style="padding:20px 32px;border-top:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-600);">All names and records are made up. Changes are not saved and reset when the page reloads.</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() { const wait = () => window.NEXIN ? this.forceUpdate() : setTimeout(wait, 50); wait(); }
+  renderVals() {
+    const N = window.NEXIN;
+    if (!N) return { personas: [], apps: [], personaId: '', onPersona: () => {} };
+    const p = N.current();
+    return {
+      personaId: p.id,
+      personas: N.personas.map(x => ({ id: x.id, label: x.name + ' · ' + N.apps.filter(a => x.roles[a.id]).map(a => x.roles[a.id]).join(', ') })),
+      onPersona: e => { N.setPersona(e.target.value); this.forceUpdate(); },
+      apps: N.apps.map(a => { const r = p.roles[a.id]; return { ...a, allowed: !!r, denied: !r, opacity: r ? 1 : 0.55, roleLabel: r ? 'Your role · ' + r : 'No access' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>
